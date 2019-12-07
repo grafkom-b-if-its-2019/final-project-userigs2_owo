@@ -1,0 +1,12 @@
+{
+    "typeAcquisition": {
+      "include": [
+        "three",
+        "cannon"
+      ]
+    },
+    "compilerOptions": {
+      "target": "ES6",
+      "module": "es6"
+    }
+  }
