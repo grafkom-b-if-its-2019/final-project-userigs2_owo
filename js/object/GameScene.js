@@ -1,6 +1,6 @@
 var sphereBody, sphereMesh;
 var mass = 5, radius = 1.3;
-var cube
+var cityBlocks = [];
 
 function InitWorld(){
     //Setup World
@@ -36,7 +36,7 @@ function InitWorld(){
     sphereShape = new CANNON.Sphere(radius);
     sphereBody = new CANNON.Body({mass:mass});
     sphereBody.addShape(sphereShape);
-    sphereBody.position.set(0,10,0);
+    sphereBody.position.set(0,100,0);
     sphereBody.linearDamping = 0.9;
     world.addBody(sphereBody);
 
@@ -91,18 +91,11 @@ function InitScene(){
     planeMesh.receiveShadow = true;
     scene.add(planeMesh);
 
-    cube = new Cube(0,1,1)
-    
+    cityBlocks[0] = new CityBuilding(50, 10, -20, 50, 10, 5);
+    cityBlocks[1] = new CityBuilding(-18, 10, 50, 15, 10, 50);
+    cityBlocks[2] = new CityBuilding(30, 5, 20, 30, 5, 20);
+    cityBlocks[3] = new CityBuilding(-25, 5, -15, 20, 5, 10);
     // city = new City();
-
-    // var gun = new THREE.OBJMTLLoader();
-    //     var mat = function (model) {
-    //         gunMesh = model;
-    //         // mesh.loadTexture(texture);
-    //         gunMesh.applyMatrix(new THREE.Matrix4().makeTranslation(0.5,-0.3,-1.4));
-    //         gunMesh.scale.set(0.3, 0.3, 0.3);
-    //         camera.add(gunMesh);
-    //     }
 
     //     gun.load('./assets/OBJ/SniperRifle.obj', './assets/OBJ/SniperRifle.mtl', mat);
 
@@ -113,14 +106,19 @@ function SceneUpdate(){
         world.step(dt);
 
         sphereMesh.position.copy(sphereBody.position);
+        sphereMesh.quaternion.copy(sphereBody.quaternion);
 
         // Update ball positions
         for(var i=0; i<balls.length; i++){
             ballMeshes[i].position.copy(balls[i].position);
             ballMeshes[i].quaternion.copy(balls[i].quaternion);
         }
+
+        // UpdateCube();   
+        // boxMesh.position.copy(boxBody.position);
+        // boxMesh.quaternion.copy(boxBody.quaternion);
     }
-    // UpdateCube();
+    
     controls.update( Date.now() - time );
     
     renderer.render( scene, camera );
