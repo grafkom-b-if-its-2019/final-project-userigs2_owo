@@ -24,7 +24,7 @@ var Cube = function(x,y,z){
     // boxMeshes.push(boxMesh);
 }
 
-function UpdateCube(){
-    boxBody.position.set(x,y,z);
-    boxMesh.position.copy(boxBody.position);
-}
+// function UpdateCube(){
+//     boxBody.position.set(x,y,z);
+//     boxMesh.position.copy(boxBody.position);
+// }

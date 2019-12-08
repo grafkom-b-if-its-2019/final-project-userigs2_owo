@@ -10,7 +10,7 @@ function Init(){
 
     stat = InitStats();
 
-    var renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.WebGLRenderer();
     renderer.shadowMapEnabled = true;
     renderer.setSize(window.innerWidth, window.innerHeight);
     
@@ -144,6 +144,7 @@ var ballGeometry = new THREE.SphereGeometry(ballShape.radius, 32, 32);
 var shootDirection = new THREE.Vector3();
 var shootVelo = 10;
 var projector = new THREE.Projector();
+
 function getShootDir(targetVec){
     var vector = targetVec;
     targetVec.set(0,0,1);

@@ -91,7 +91,7 @@ function InitScene(){
     planeMesh.receiveShadow = true;
     scene.add(planeMesh);
 
-    cube = new Cube(0,2.5,2)
+    cube = new Cube(0,1,1)
     
     // city = new City();
 
@@ -112,15 +112,17 @@ function SceneUpdate(){
     if(controls.enabled){
         world.step(dt);
 
+        sphereMesh.position.copy(sphereBody.position);
+
         // Update ball positions
         for(var i=0; i<balls.length; i++){
             ballMeshes[i].position.copy(balls[i].position);
             ballMeshes[i].quaternion.copy(balls[i].quaternion);
         }
     }
-    UpdateCube();
+    // UpdateCube();
     controls.update( Date.now() - time );
-    sphereMesh.position.copy(sphereBody.position);
+    
     renderer.render( scene, camera );
     time = Date.now();
 }
