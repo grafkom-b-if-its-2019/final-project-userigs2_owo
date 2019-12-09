@@ -1,6 +1,11 @@
 var sphereBody, sphereMesh;
 var mass = 5, radius = 1.3;
-var cityBlocks = [];
+var building = [];
+var cityBlocks = [  [50, 10, -20, 50, 10, 5],
+                    [-18, 10, 50, 15, 10, 50],
+                    [30, 5, 20, 30, 5, 20],
+                    [-25, 5, -15, 20, 5, 10],
+                    [-25, 50, -15, 20, 5, 10]];
 
 function InitWorld(){
     //Setup World
@@ -91,10 +96,21 @@ function InitScene(){
     planeMesh.receiveShadow = true;
     scene.add(planeMesh);
 
-    cityBlocks[0] = new CityBuilding(50, 10, -20, 50, 10, 5);
-    cityBlocks[1] = new CityBuilding(-18, 10, 50, 15, 10, 50);
-    cityBlocks[2] = new CityBuilding(30, 5, 20, 30, 5, 20);
-    cityBlocks[3] = new CityBuilding(-25, 5, -15, 20, 5, 10);
+    for(var i=0; i<cityBlocks.length; i++) {
+        building[i] =  new CityBuilding(
+            cityBlocks[i][0],
+            cityBlocks[i][1],
+            cityBlocks[i][2],
+            cityBlocks[i][3],
+            cityBlocks[i][4],
+            cityBlocks[i][5])
+    }
+    console.log('addada' + cityBlocks.length);
+
+    // cityBlocks[0] = new CityBuilding(50, 10, -20, 50, 10, 5);
+    // cityBlocks[1] = new CityBuilding(-18, 10, 50, 15, 10, 50);
+    // cityBlocks[2] = new CityBuilding(30, 5, 20, 30, 5, 20);
+    // cityBlocks[3] = new CityBuilding(-25, 5, -15, 20, 5, 10);
     // city = new City();
 
     //     gun.load('./assets/OBJ/SniperRifle.obj', './assets/OBJ/SniperRifle.mtl', mat);
@@ -113,10 +129,9 @@ function SceneUpdate(){
             ballMeshes[i].position.copy(balls[i].position);
             ballMeshes[i].quaternion.copy(balls[i].quaternion);
         }
-
-        // UpdateCube();   
-        // boxMesh.position.copy(boxBody.position);
-        // boxMesh.quaternion.copy(boxBody.quaternion);
+        for(var i=0; i<boxes.length; i++) {
+            UpdateCube(i);
+       }
     }
     
     controls.update( Date.now() - time );

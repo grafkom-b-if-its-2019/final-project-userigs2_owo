@@ -22,11 +22,11 @@ var CityBuilding = function(posX,posY,posZ, x, y, z){
     boxMesh.castShadow = true;
     boxMesh.receiveShadow = true;
     boxes.push(boxBody);
-
+    boxMeshes.push(boxMesh);
 }
 
-// function UpdateCube(){
-//     boxMesh.position.copy(boxBody.position);
-//     boxMesh.quaternion.copy(boxBody.quaternion);
-// }
+function UpdateCube(i){
+    boxMeshes[i].position.copy(boxes[i].position);
+    boxMeshes[i].quaternion.copy(boxes[i].quaternion);
+}
 
