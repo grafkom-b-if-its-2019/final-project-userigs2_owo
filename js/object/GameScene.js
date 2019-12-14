@@ -37,13 +37,7 @@ function InitWorld(){
     // Add material to the world
     world.addContactMaterial(physicsContactMaterial);
 
-    // Create Sphere
-    sphereShape = new CANNON.Sphere(radius);
-    sphereBody = new CANNON.Body({mass:mass});
-    sphereBody.addShape(sphereShape);
-    sphereBody.position.set(0,100,0);
-    sphereBody.linearDamping = 0.9;
-    world.addBody(sphereBody);
+    InitPlayer();
 
     // Create Plane
     groundShape = new CANNON.Plane();
@@ -106,15 +100,6 @@ function InitScene(){
             cityBlocks[i][5])
     }
     console.log('addada' + cityBlocks.length);
-
-    // cityBlocks[0] = new CityBuilding(50, 10, -20, 50, 10, 5);
-    // cityBlocks[1] = new CityBuilding(-18, 10, 50, 15, 10, 50);
-    // cityBlocks[2] = new CityBuilding(30, 5, 20, 30, 5, 20);
-    // cityBlocks[3] = new CityBuilding(-25, 5, -15, 20, 5, 10);
-    // city = new City();
-
-    //     gun.load('./assets/OBJ/SniperRifle.obj', './assets/OBJ/SniperRifle.mtl', mat);
-
 }
 
 function SceneUpdate(){
@@ -125,10 +110,7 @@ function SceneUpdate(){
         sphereMesh.quaternion.copy(sphereBody.quaternion);
 
         // Update ball positions
-        for(var i=0; i<balls.length; i++){
-            ballMeshes[i].position.copy(balls[i].position);
-            ballMeshes[i].quaternion.copy(balls[i].quaternion);
-        }
+        BulletMovement();
         for(var i=0; i<boxes.length; i++) {
             UpdateCube(i);
        }
