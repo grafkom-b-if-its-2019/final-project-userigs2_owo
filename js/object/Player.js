@@ -64,5 +64,21 @@ function BulletMovement(){
     for(var i=0; i<balls.length; i++){
         ballMeshes[i].position.copy(balls[i].position);
         ballMeshes[i].quaternion.copy(balls[i].quaternion);
+        for(j = 0;j<cityBlocks.length;j++){
+            if(ballMeshes[i].position.x+0.2>=cityBlocks[j][0]-cityBlocks[j][3] && ballMeshes[i].position.x-0.2<=cityBlocks[j][0]+cityBlocks[j][3]){
+                if(ballMeshes[i].position.y+0.2>=cityBlocks[j][1]-cityBlocks[j][4] && ballMeshes[i].position.y-0.2<=cityBlocks[j][1]+cityBlocks[j][4]){
+                    if(ballMeshes[i].position.z+0.2>=cityBlocks[j][2]-cityBlocks[j][5] && ballMeshes[i].position.z-0.2<=cityBlocks[j][2]+cityBlocks[j][5]){
+                        scene.remove(ballMeshes[i]);
+                        world.removeBody(balls[i]);
+                    }
+                }
+            }
+        }
+        // if(ballMeshes[i].position.x>=0 && ballMeshes.position.x<=300){
+        //     if(ballMeshes[i].position.z>=0 && ballMeshes.position.z<=300){
+        //         scene.remove(ballMeshes[i]);
+        //         world.remove(balls[i]);
+        //     }
+        // }
     }
 }
