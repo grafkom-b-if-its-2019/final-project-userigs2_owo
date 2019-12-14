@@ -39,7 +39,8 @@ function PlayerShoot(){
             var z = playerBody.position.z;
             var ballBody = new CANNON.Body({ mass: 1 });
             ballBody.addShape(ballShape);
-            var ballMesh = new THREE.Mesh( ballGeometry, material );
+            var bulletMaterial = new THREE.MeshBasicMaterial({ color: 0xff00ff });
+            var ballMesh = new THREE.Mesh( ballGeometry, bulletMaterial );
             world.addBody(ballBody);
             scene.add(ballMesh);
             ballMesh.castShadow = true;

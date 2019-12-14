@@ -10,7 +10,7 @@ var CityBuilding = function(posX,posY,posZ, x, y, z){
 
     boxBody = new CANNON.Body({ mass: 0 });
     boxBody.addShape(boxShape);
-    var texture = THREE.ImageUtils.loadTexture('./assets/textures/metro01.JPG');
+    var texture = THREE.ImageUtils.loadTexture('./assets/textures/wall01.JPG');
     var boxMaterial = new THREE.MeshBasicMaterial({ map: texture });
     boxMesh = new THREE.Mesh( boxGeometry, boxMaterial );
     boxMesh.castShadow = true;

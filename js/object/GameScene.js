@@ -70,10 +70,21 @@ function InitScene(){
     // floor
     geoPlane = new THREE.PlaneGeometry( 300, 300, 1, 1);
     geoPlane.applyMatrix(new THREE.Matrix4().makeRotationX( -Math.PI / 2));
-    var grassTexture = THREE.ImageUtils.loadTexture('./assets/textures/grass.jpg');
-    material = new THREE.MeshPhongMaterial({map: grassTexture});
+    var grassTexture = THREE.ImageUtils.loadTexture('./assets/textures/grass01.png');
+    // var planeMaterial;
+    // var textureLoader = new THREE.TextureLoader()
+    // textureLoader.load( './assets/textures/grass01.png', function ( grassTexture ) {
+        
+    //     grassTexture.wrapS = grassTexture.wrapT = THREE.RepeatWrapping;
+    //     grassTexture.offset.set( 0, 0 );
+    //     grassTexture.repeat.set( 2, 2 );
 
-    planeMesh = new THREE.Mesh(geoPlane, material);
+        
+    // } );
+    planeMaterial = new THREE.MeshPhongMaterial({map: grassTexture});
+    planeMesh = new THREE.Mesh(geoPlane, planeMaterial);
+    
+
     planeMesh.castShadow = true;
     planeMesh.receiveShadow = true;
     scene.add(planeMesh);
