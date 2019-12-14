@@ -6,7 +6,7 @@ var cityBlocks = [  [50, 10, -20, 50, 10, 5],
                     [30, 5, 20, 30, 5, 20],
                     [-25, 5, -15, 20, 5, 10],
                     [-25, 50, -15, 20, 5, 10]];
-                    
+
 function InitWorld(){
     //Setup World
     world = new CANNON.World();

@@ -3,7 +3,7 @@ function InitPlayer(){
       sphereShape = new CANNON.Sphere(radius);
       sphereBody = new CANNON.Body({mass:mass});
       sphereBody.addShape(sphereShape);
-      sphereBody.position.set(0,25,0);
+      sphereBody.position.set(0,100,0);
       sphereBody.linearDamping = 0.9;
       world.addBody(sphereBody);
       PlayerShoot();
@@ -15,7 +15,7 @@ function PlayerShoot(){
     var ballGeometry = new THREE.SphereGeometry(ballShape.radius, 32, 32);
     var shootDirection = new THREE.Vector3();
     var shootVelo = 90;
-    //# var projector = new THREE.Projector();
+    var projector = new THREE.Projector();
     function getShootDir(targetVec){
         var vector = targetVec;
         targetVec.set(0,0,1);
@@ -67,11 +67,5 @@ function BulletMovement(){
                 }
             }
         }
-        // if(ballMeshes[i].position.x>=0 && ballMeshes.position.x<=300){
-        //     if(ballMeshes[i].position.z>=0 && ballMeshes.position.z<=300){
-        //         scene.remove(ballMeshes[i]);
-        //         world.remove(balls[i]);
-        //     }
-        // }
     }
 }
