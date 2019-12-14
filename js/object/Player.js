@@ -1,3 +1,6 @@
+var playerMesh;
+var playerBody;
+
 function InitPlayer(){
     // Player Body
     playerShape = new CANNON.Sphere(radius);
@@ -80,12 +83,14 @@ function BulletMovement(){
         //         }
         //     }
         // }
-        console.log(ballMeshes[i].position.x);
         if(ballMeshes[i].position.x>=-300 && ballMeshes[i].position.x<=300){
             if(ballMeshes[i].position.z>=-300 && ballMeshes[i].position.z<=300){
                 if(ballMeshes[i].position.y>=-1 && ballMeshes[i].position.y<=1){
                     scene.remove(ballMeshes[i]);
                     world.remove(balls[i]);
+                    ballMeshes.splice(i,1);
+                    balls.splice(i,1);
+                    i--;
                 }
             }
         }
@@ -97,6 +102,12 @@ function BulletMovement(){
                         world.removeBody(balls[i]);
                         scene.remove(enemyMeshes[j]);
                         world.remove(enemyBodies[j]);
+                        ballMeshes.splice(i,1);
+                        balls.splice(i,1);
+                        enemyBodies.splice(j,1);
+                        enemyMeshes.splice(j,1);
+                        i--;
+                        j--;
                     }
                 }
             }

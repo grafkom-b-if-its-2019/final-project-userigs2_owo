@@ -54,4 +54,25 @@ var enemy = function(x,y,z) {
 function UpdateEnemy(i){
     enemyMeshes[i].position.copy(enemyBodies[i].position);
     enemyMeshes[i].quaternion.copy(enemyBodies[i].quaternion);
+    if(enemyMeshes[i].position.x + 1.4 >= playerMesh.position.x && enemyMeshes[i].position.x - 1.4 <= playerMesh.position.x){
+        if(enemyMeshes[i].position.y + 1.4 >= playerMesh.position.y && enemyMeshes[i].position.y - 1.4 <= playerMesh.position.y){
+            if(enemyMeshes[i].position.z + 1.4 >= playerMesh.position.z && enemyMeshes[i].position.z - 1.4 <= playerMesh.position.z){
+                scene.remove(enemyMeshes[i]);
+                world.removeBody(enemyBodies[i]);
+                enemyMeshes=[];
+                enemyBodies=[];
+                scene.remove(playerMesh);
+                world.removeBody(playerBody);
+                controls.enabled = false;
+
+                blocker.style.display = '-webkit-box';
+                blocker.style.display = '-moz-box';
+                blocker.style.display = 'box';
+                instructions.style.display = '';
+                Start();
+                InitGameObject();
+
+            }
+        }
+    }
 }

@@ -93,13 +93,6 @@ function InitScene(){
     planeMesh.castShadow = true;
     planeMesh.receiveShadow = true;
     scene.add(planeMesh);
-}
-
-function InitGameObject(){
-    InitPlayer();
-
-    controls = new PointerLockControls(camera, playerBody);
-    scene.add(controls.getObject());
 
     for(var i=0; i<cityBlocks.length; i++) {
         new CityBuilding(
@@ -110,10 +103,15 @@ function InitGameObject(){
             cityBlocks[i][4],
             cityBlocks[i][5])
     }
-    console.log('addada' + cityBlocks.length);
+}
+
+function InitGameObject(){
+    InitPlayer();
+
+    controls = new PointerLockControls(camera, playerBody);
+    scene.add(controls.getObject());
 
     InitEnemy();
-
 }
 
 function SceneUpdate(){

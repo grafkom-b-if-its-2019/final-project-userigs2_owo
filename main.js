@@ -34,7 +34,7 @@ function Start(){
     var blocker = document.getElementById( 'blocker' );
     var instructions = document.getElementById( 'instructions' );
 
-    var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
+    havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
     if ( havePointerLock ) {
 
@@ -116,6 +116,12 @@ function Start(){
         instructions.innerHTML = 'Your browser doesn\'t seem to support Pointer Lock API';
 
     }
+    var onKeyDown = function ( event ) {
+        if(event.keyCode==27){
+            window.location.reload();
+        }
+    }
+    document.addEventListener( 'keydown', onKeyDown, false );
 }
 
 function InitStats() {
