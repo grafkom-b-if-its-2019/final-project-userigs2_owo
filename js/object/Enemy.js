@@ -32,7 +32,7 @@ var enemy = function(x,y,z) {
     var EnemyBody = new CANNON.Body({mass:5});
     EnemyBody.addShape(EnemyShape);
 
-    var EnemyGeometry = new THREE.SphereGeometry(EnemyShape.radius, 32, 32);
+    var EnemyGeometry = new THREE.SphereGeometry(EnemyShape.radius, 32, 32);    
     var EnemyMaterial = new THREE.MeshPhongMaterial({color: '#ff0000'});    
     var EnemyMesh = new THREE.Mesh( EnemyGeometry, EnemyMaterial );
 
@@ -40,7 +40,7 @@ var enemy = function(x,y,z) {
     EnemyMesh.receiveShadow = true;
     
     EnemyBody.position.set(x,y,z);
-    EnemyMesh.position.copy(EnemyBody.position);
+    // EnemyMesh.position.copy(EnemyBody.position);
     
     EnemyBody.linearDamping = 0.9;
     
