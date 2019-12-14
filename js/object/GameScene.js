@@ -1,7 +1,11 @@
 var playerBody, playerMesh;
 var mass = 5, radius = 1.3;
 var building;
-var cityBlocks = [  [50, 10, -20, 50, 10, 5],
+var cityBlocks = [  [-150, 30, 0, 30, 30, 150],     // Boundary West
+                    [150, 30, 0, 30, 30, 150],      // Boundary East
+                    [0, 30, 150, 150, 30, 30],      // Boundary South
+                    [0, 30, -150, 150, 30, 30],     // Boundary North
+                    [50, 10, -20, 50, 10, 5],
                     [-18, 10, 50, 15, 10, 50],
                     [30, 5, 20, 30, 5, 20],
                     [-25, 5, -15, 20, 5, 10],
@@ -44,7 +48,7 @@ function InitWorld(){
 
     // Create Plane
     groundShape = new CANNON.Plane();
-    groundBody = new CANNON.Body({mass: 0,collisionFilterGroup:g[1],collisionFilterMask:g[0]|g[2]});
+    groundBody = new CANNON.Body({mass: 0, collisionFilterGroup:g[1],collisionFilterMask:g[0]|g[2]});
     groundBody.addShape(groundShape);
     groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1,0,0),-Math.PI/2);
     world.addBody(groundBody);
@@ -55,11 +59,50 @@ function InitScene(){
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
     scene = new THREE.Scene();
 
+    // Skybox
+    var sky = new THREE.BoxGeometry(1024, 1024, 1024, 1,1,1);
+    var skyMaterials = [
+        // back side
+        new THREE.MeshBasicMaterial({
+          map: new THREE.ImageUtils.loadTexture('assets/textures/skybox/back.png'),
+          side: THREE.DoubleSide
+        }),
+        // front side
+        new THREE.MeshBasicMaterial({
+          map: new THREE.ImageUtils.loadTexture('assets/textures/skybox/front.png'),
+          side: THREE.DoubleSide
+        }), 
+        // Top side
+        new THREE.MeshBasicMaterial({
+          map: new THREE.ImageUtils.loadTexture('assets/textures/skybox/top.png'),
+          side: THREE.DoubleSide
+        }), 
+        // Bottom side
+        new THREE.MeshBasicMaterial({
+          map: new THREE.ImageUtils.loadTexture('assets/textures/skybox/bot.png'),
+          side: THREE.DoubleSide
+        }), 
+        // right side
+        new THREE.MeshBasicMaterial({
+          map: new THREE.ImageUtils.loadTexture('assets/textures/skybox/right.png'),
+          side: THREE.DoubleSide
+        }), 
+        // left side
+        new THREE.MeshBasicMaterial({
+          map: new THREE.ImageUtils.loadTexture('assets/textures/skybox/left.png'),
+          side: THREE.DoubleSide
+        }) 
+      ];
+  
+    var skyMaterial = new THREE.MeshFaceMaterial(skyMaterials);
+    var skyMesh = new THREE.Mesh(sky, skyMaterial);
+    scene.add(skyMesh);
+
     ambient = new THREE.AmbientLight( 0x111111);
     scene.add(ambient);
 
     light = new THREE.SpotLight( 0xffffff );
-    light.position.set(100,100,0);
+    light.position.set(100,150,0);
     light.target.position.set(0,0,0);
 
     if(true) {
@@ -76,16 +119,7 @@ function InitScene(){
     geoPlane = new THREE.PlaneGeometry( 300, 300, 1, 1);
     geoPlane.applyMatrix(new THREE.Matrix4().makeRotationX( -Math.PI / 2));
     var grassTexture = THREE.ImageUtils.loadTexture('./assets/textures/grass01.png');
-    // var planeMaterial;
-    // var textureLoader = new THREE.TextureLoader()
-    // textureLoader.load( './assets/textures/grass01.png', function ( grassTexture ) {
-        
-    //     grassTexture.wrapS = grassTexture.wrapT = THREE.RepeatWrapping;
-    //     grassTexture.offset.set( 0, 0 );
-    //     grassTexture.repeat.set( 2, 2 );
 
-        
-    // } );
     planeMaterial = new THREE.MeshPhongMaterial({map: grassTexture});
     planeMesh = new THREE.Mesh(geoPlane, planeMaterial);
     
@@ -94,6 +128,7 @@ function InitScene(){
     planeMesh.receiveShadow = true;
     scene.add(planeMesh);
 
+    // Building
     for(var i=0; i<cityBlocks.length; i++) {
         new CityBuilding(
             cityBlocks[i][0],
@@ -101,8 +136,10 @@ function InitScene(){
             cityBlocks[i][2],
             cityBlocks[i][3],
             cityBlocks[i][4],
-            cityBlocks[i][5])
+            cityBlocks[i][5],
+            i)
     }
+    console.log('addada' + cityBlocks.length);
 }
 
 function InitGameObject(){
@@ -112,6 +149,7 @@ function InitGameObject(){
     scene.add(controls.getObject());
 
     InitEnemy();
+
 }
 
 function SceneUpdate(){

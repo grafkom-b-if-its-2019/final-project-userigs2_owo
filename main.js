@@ -20,6 +20,7 @@ function Init(){
     renderer = new THREE.WebGLRenderer();
     renderer.shadowMapEnabled = true;
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0xffffff, 0.5);
     // renderer.vr.enabled = true;
     
     document.body.appendChild(WEBVR.createButton(renderer));
@@ -153,5 +154,4 @@ function Update() {
     stat.update();
 
 }
-
 Init();
