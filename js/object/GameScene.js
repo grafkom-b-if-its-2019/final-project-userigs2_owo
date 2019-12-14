@@ -6,6 +6,11 @@ var cityBlocks = [  [50, 10, -20, 50, 10, 5],
                     [30, 5, 20, 30, 5, 20],
                     [-25, 5, -15, 20, 5, 10],
                     [-43, 15, -5, 10, 5, 30]];
+
+var sec = 0;
+var frame = 0;
+var spawnInterval = Math.floor(Math.random() * 3) + 1;
+var lastSpawned = 0;
                     
 function InitWorld(){
     //Setup World
@@ -119,6 +124,22 @@ function SceneUpdate(){
         playerMesh.quaternion.copy(playerBody.quaternion);
 
         BulletMovement();
+
+        frame += 1;
+
+        if(frame == 60){
+            frame = 0;
+            sec += 1;
+            
+            if((sec -lastSpawned) == spawnInterval){
+                lastSpawned = sec;
+                spawnInterval = Math.floor(Math.random() * 3);
+
+                console.log("spawn interval: " + spawnInterval);
+
+                SpawnEnemyRandom();
+            }
+        }
     }
     
     for(var i=0; i<enemyBodies.length; i++) {
