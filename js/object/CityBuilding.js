@@ -8,13 +8,14 @@ var CityBuilding = function(posX,posY,posZ, x, y, z){
     var boxShape = new CANNON.Box(halfExtents);
     var boxGeometry = new THREE.BoxGeometry(halfExtents.x*2,halfExtents.y*2,halfExtents.z*2);
 
-    boxBody = new CANNON.Body({ mass: 10 });
+    boxBody = new CANNON.Body({ mass: 0 });
     boxBody.addShape(boxShape);
     var texture = THREE.ImageUtils.loadTexture('./assets/textures/metro01.JPG');
     var boxMaterial = new THREE.MeshBasicMaterial({ map: texture });
     boxMesh = new THREE.Mesh( boxGeometry, boxMaterial );
     boxMesh.castShadow = true;
     boxMesh.receiveShadow = true;
+    // boxBody.mass = 0;
     world.addBody(boxBody);
     scene.add(boxMesh);
     boxBody.position.set(posX,posY,posZ);
@@ -23,6 +24,7 @@ var CityBuilding = function(posX,posY,posZ, x, y, z){
     boxMesh.receiveShadow = true;
     boxes.push(boxBody);
     boxMeshes.push(boxMesh);
+    
 }
 
 function UpdateCube(i){
