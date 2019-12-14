@@ -41,5 +41,10 @@ var enemy = function(x,y,z) {
     world.addBody(EnemyBody);
 
     enemyBodies.push(EnemyBody);
-    enemyMeshes.push(enemyMeshes);
+    enemyMeshes.push(EnemyMesh);
+}
+
+function UpdateEnemy(i){
+    enemyMeshes[i].position.copy(enemyBodies[i].position);
+    enemyMeshes[i].quaternion.copy(enemyBodies[i].quaternion);
 }

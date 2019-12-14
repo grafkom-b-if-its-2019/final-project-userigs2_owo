@@ -9,7 +9,6 @@ function Init(){
     InitWorld();
     InitScene();
     InitGameObject();
-    initEnemy();
 
     stat = InitStats();
 
