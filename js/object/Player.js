@@ -1,17 +1,18 @@
 function InitPlayer(){
-    // Create Sphere
+    // Player Body
     playerShape = new CANNON.Sphere(radius);
     playerBody = new CANNON.Body({mass:mass});
     playerBody.addShape(playerShape);
     playerBody.position.set(0,100,0);
     playerBody.linearDamping = 0.9;
-    //Sphere
+    // Player Mesh
     var sphereGeometry = new THREE.SphereGeometry(radius);
     var sphereMaterial = new THREE.MeshLambertMaterial({color: 0xffff00});
     playerMesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
     playerMesh.position.copy(playerBody.position);
     playerMesh.castShadow = true;
     playerMesh.receiveShadow = true;
+    
     scene.add(playerMesh);
     world.addBody(playerBody);
     PlayerShoot();

@@ -5,7 +5,7 @@ var cityBlocks = [  [50, 10, -20, 50, 10, 5],
                     [-18, 10, 50, 15, 10, 50],
                     [30, 5, 20, 30, 5, 20],
                     [-25, 5, -15, 20, 5, 10],
-                    [-25, 50, -15, 20, 5, 10]];
+                    [-43, 15, -5, 10, 5, 30]];
                     
 function InitWorld(){
     //Setup World
@@ -70,8 +70,8 @@ function InitScene(){
     // floor
     geoPlane = new THREE.PlaneGeometry( 300, 300, 1, 1);
     geoPlane.applyMatrix(new THREE.Matrix4().makeRotationX( -Math.PI / 2));
-
-    material = new THREE.MeshPhongMaterial({color: 0xdddddd});
+    var grassTexture = THREE.ImageUtils.loadTexture('./assets/textures/grass.jpg');
+    material = new THREE.MeshPhongMaterial({map: grassTexture});
 
     planeMesh = new THREE.Mesh(geoPlane, material);
     planeMesh.castShadow = true;
@@ -96,7 +96,7 @@ function InitGameObject(){
     }
     console.log('addada' + cityBlocks.length);
 
-    initEnemy();
+    InitEnemy();
 
 }
 
@@ -108,10 +108,11 @@ function SceneUpdate(){
         playerMesh.quaternion.copy(playerBody.quaternion);
 
         BulletMovement();
-    //     for(var i=0; i<boxes.length; i++) {
-    //         UpdateCube(i);
-    //    }
     }
+    
+    for(var i=0; i<enemyBodies.length; i++) {
+        UpdateEnemy(i);
+   }
     
     controls.update( Date.now() - time );
     
