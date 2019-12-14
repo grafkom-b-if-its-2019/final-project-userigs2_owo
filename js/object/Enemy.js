@@ -15,6 +15,13 @@ function InitEnemy() {
     }
 }
 
+function SpawnEnemyRandom(){     
+    x = Math.floor(Math.random() * 281) - 140;     
+    y = 50;     
+    z = Math.floor(Math.random() * 281) - 140;      
+    Enemies.push(new enemy(x,y,z)) 
+}
+
 // Area 1: 30 (min 0), 0, 69 (min 40)
 // Area 2:
 
