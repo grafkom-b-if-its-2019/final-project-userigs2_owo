@@ -48,7 +48,7 @@ function InitWorld(){
 
     // Create Plane
     groundShape = new CANNON.Plane();
-    groundBody = new CANNON.Body({mass: 0});
+    groundBody = new CANNON.Body({mass: 0, collisionFilterGroup:g[1],collisionFilterMask:g[0]|g[2]});
     groundBody.addShape(groundShape);
     groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1,0,0),-Math.PI/2);
     world.addBody(groundBody);
