@@ -85,5 +85,17 @@ function BulletMovement(){
                 }
             }
         }
+        for(j=0;j<enemyMeshes.length;j++){
+            if(ballMeshes[i].position.x + 1.4 >= enemyMeshes[j].position.x && ballMeshes[i].position.x - 1.4 <= enemyMeshes[j].position.x){
+                if(ballMeshes[i].position.y + 1.4 >= enemyMeshes[j].position.y && ballMeshes[i].position.y - 1.4 <= enemyMeshes[j].position.y){
+                    if(ballMeshes[i].position.z + 1.4 >= enemyMeshes[j].position.z && ballMeshes[i].position.z - 1.4 <= enemyMeshes[j].position.z){
+                        scene.remove(ballMeshes[i]);
+                        world.removeBody(balls[i]);
+                        scene.remove(enemyMeshes[j]);
+                        world.remove(enemyBodies[j]);
+                    }
+                }
+            }
+        }
     }
 }
