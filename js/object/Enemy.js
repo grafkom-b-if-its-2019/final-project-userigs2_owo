@@ -29,7 +29,7 @@ var enemy = function(x,y,z) {
 
     //placeholder model
     var EnemyShape = new CANNON.Sphere(1.3);
-    var EnemyBody = new CANNON.Body({mass:5});
+    var EnemyBody = new CANNON.Body({mass:5,collisionFilterGroup:g[2],collisionFilterMask:g[0]|g[1]});
     EnemyBody.addShape(EnemyShape);
 
     var EnemyGeometry = new THREE.SphereGeometry(EnemyShape.radius, 32, 32);

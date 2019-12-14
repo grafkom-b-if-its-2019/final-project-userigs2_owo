@@ -5,7 +5,7 @@
  var PointerLockControls = function ( camera, cannonBody ) {
 
     var eyeYPos = 2; // eyes are 2 meters above the ground
-    var velocityFactor = 0.2;
+    var velocityFactor;
     var jumpVelocity = 20;
     var scope = this;
 
@@ -22,6 +22,7 @@
     var moveBackward = false;
     var moveLeft = false;
     var moveRight = false;
+    var run = false;
 
     var canJump = false;
 
@@ -38,8 +39,8 @@
             contactNormal.copy(contact.ni); // bi is something else. Keep the normal as it is
 
         // If contactNormal.dot(upAxis) is between 0 and 1, we know that the contact normal is somewhat in the up direction.
-        if(contactNormal.dot(upAxis) > 0.5) // Use a "good" threshold value between 0 and 1 here!
-            canJump = true;
+        // if(contactNormal.dot(upAxis) > 0.5) // Use a "good" threshold value between 0 and 1 here!
+        canJump = true;
     });
 
     var velocity = cannonBody.velocity;
@@ -82,6 +83,10 @@
                 moveRight = true;
                 break;
 
+            case 16: //shift
+                run = true;
+                break;
+            
             case 32: // space
                 if ( canJump === true ){
                     velocity.y = jumpVelocity;
@@ -116,6 +121,9 @@
                 moveRight = false;
                 break;
 
+            case 16: // shift
+                run = false;
+
         }
 
     };
@@ -139,6 +147,11 @@
     var inputVelocity = new THREE.Vector3();
     var euler = new THREE.Euler();
     this.update = function ( delta ) {
+        if(run==false){
+            velocityFactor=0.2;
+        }else {
+            velocityFactor=0.5;
+        }
 
         if ( scope.enabled === false ) return;
 

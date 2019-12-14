@@ -3,6 +3,11 @@ var balls = [], ballMeshes = [];
 var dt = 1/60;
 var stat, scene;
 var renderer;
+var g=[];
+for(i=0,a=1;i<3;i++){
+    g.push(a);
+    a=a*2;
+}
 
 function Init(){
     Start();

@@ -1,7 +1,7 @@
 function InitPlayer(){
     // Player Body
     playerShape = new CANNON.Sphere(radius);
-    playerBody = new CANNON.Body({mass:mass});
+    playerBody = new CANNON.Body({mass:mass,collisionFilterGroup:g[0],collisionFilterMask:g[1]});
     playerBody.addShape(playerShape);
     playerBody.position.set(0,100,0);
     playerBody.linearDamping = 0.9;
@@ -37,12 +37,16 @@ function PlayerShoot(){
             var x = playerBody.position.x;
             var y = playerBody.position.y;
             var z = playerBody.position.z;
-            var ballBody = new CANNON.Body({ mass: 1 });
+            var ballBody = new CANNON.Body({ mass: 1,collisionFilterGroup:g[0],collisionFilterMask:g[1]|g[2]});
             ballBody.addShape(ballShape);
             var bulletMaterial = new THREE.MeshBasicMaterial({ color: 0xff00ff });
             var ballMesh = new THREE.Mesh( ballGeometry, bulletMaterial );
             world.addBody(ballBody);
             scene.add(ballMesh);
+            // ballBody.addEventListener('collide',function(){
+            //     world.removeBody(ballBody);
+            //     scene.remove(ballMesh);
+            // });
             ballMesh.castShadow = true;
             ballMesh.receiveShadow = true;
             balls.push(ballBody);
@@ -66,16 +70,16 @@ function BulletMovement(){
     for(var i=0; i<balls.length; i++){
         ballMeshes[i].position.copy(balls[i].position);
         ballMeshes[i].quaternion.copy(balls[i].quaternion);
-        for(j = 0;j<cityBlocks.length;j++){
-            if(ballMeshes[i].position.x+0.2>=cityBlocks[j][0]-cityBlocks[j][3] && ballMeshes[i].position.x-0.2<=cityBlocks[j][0]+cityBlocks[j][3]){
-                if(ballMeshes[i].position.y+0.2>=cityBlocks[j][1]-cityBlocks[j][4] && ballMeshes[i].position.y-0.2<=cityBlocks[j][1]+cityBlocks[j][4]){
-                    if(ballMeshes[i].position.z+0.2>=cityBlocks[j][2]-cityBlocks[j][5] && ballMeshes[i].position.z-0.2<=cityBlocks[j][2]+cityBlocks[j][5]){
-                        scene.remove(ballMeshes[i]);
-                        world.removeBody(balls[i]);
-                    }
-                }
-            }
-        }
+        // for(j = 0;j<cityBlocks.length;j++){
+        //     if(ballMeshes[i].position.x+0.2>=cityBlocks[j][0]-cityBlocks[j][3] && ballMeshes[i].position.x-0.2<=cityBlocks[j][0]+cityBlocks[j][3]){
+        //         if(ballMeshes[i].position.y+0.2>=cityBlocks[j][1]-cityBlocks[j][4] && ballMeshes[i].position.y-0.2<=cityBlocks[j][1]+cityBlocks[j][4]){
+        //             if(ballMeshes[i].position.z+0.2>=cityBlocks[j][2]-cityBlocks[j][5] && ballMeshes[i].position.z-0.2<=cityBlocks[j][2]+cityBlocks[j][5]){
+        //                 scene.remove(ballMeshes[i]);
+        //                 world.removeBody(balls[i]);
+        //             }
+        //         }
+        //     }
+        // }
         console.log(ballMeshes[i].position.x);
         if(ballMeshes[i].position.x>=-300 && ballMeshes[i].position.x<=300){
             if(ballMeshes[i].position.z>=-300 && ballMeshes[i].position.z<=300){
