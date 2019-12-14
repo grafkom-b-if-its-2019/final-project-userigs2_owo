@@ -15,7 +15,6 @@ var CityBuilding = function(posX,posY,posZ, x, y, z){
     boxMesh = new THREE.Mesh( boxGeometry, boxMaterial );
     boxMesh.castShadow = true;
     boxMesh.receiveShadow = true;
-    // boxBody.mass = 0;
     world.addBody(boxBody);
     scene.add(boxMesh);
     boxBody.position.set(posX,posY,posZ);
