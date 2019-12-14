@@ -8,7 +8,8 @@ function Init(){
     Start();
     InitWorld();
     InitScene();
-    initEnemy();
+    
+    InitEnemy();
 
     stat = InitStats();
 
