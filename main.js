@@ -8,8 +8,13 @@ function Init(){
     Start();
     InitWorld();
     InitScene();
+<<<<<<< HEAD
+    
+    InitEnemy();
+=======
     InitGameObject();
     initEnemy();
+>>>>>>> 1186f5ab902afd357678303925665d70cea00243
 
     stat = InitStats();
 
