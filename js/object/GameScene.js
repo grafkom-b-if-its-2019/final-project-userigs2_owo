@@ -168,7 +168,7 @@ function InitGameObject(){
     scene.add(controls.getObject());
 
     InitEnemy();
-    // InitSpider();
+    InitSpider();
 
 }
 
@@ -192,7 +192,7 @@ function SceneUpdate(){
                 lastSpawned = sekon;
                 spawnInterval = Math.round(Math.random())+1;
 
-                console.log("spawn interval: " + spawnInterval);
+                // console.log("spawn interval: " + spawnInterval);
 
                 SpawnEnemyRandom();
             }

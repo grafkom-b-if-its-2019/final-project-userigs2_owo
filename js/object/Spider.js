@@ -3,11 +3,11 @@ var mySpider;
 var SpiderBody;
 
 function InitSpider(){
-    var SpiderShape = new CANNON.Box(new CANNON.Vec3(1,1,1));
-    SpiderBody = new CANNON.Body({mass: 0});
+    var SpiderShape = new CANNON.Box(new CANNON.Vec3(3,1,3));
+    SpiderBody = new CANNON.Body({mass: 0, collisionFilterGroup:g[1],collisionFilterMask:g[0]|g[2]});
     SpiderBody.addShape(SpiderShape);
     world.addBody(SpiderBody);
-    SpiderBody.position.set(0, 1, -8);
+    SpiderBody.position.set(0, 50, -48);
 
     var spiderLoader = new THREE.OBJMTLLoader();
     spiderLoader.load('./assets/models/Spider.obj', './assets/models/Spider.mtl',function(obj){
@@ -15,7 +15,8 @@ function InitSpider(){
         mySpider = obj;
         mySpider.position.copy(SpiderBody.position);
         scene.add(mySpider);
-        mySpider.scale.set(0.03,0.03,0.03);
+        mySpider.castShadow = true;
+        mySpider.scale.set(0.04,0.04,0.04);
         SpiderMeshes.push(mySpider);
 
     });
