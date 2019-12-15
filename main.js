@@ -139,13 +139,12 @@ function Restart() {
     Start();
     InitGameObject();
     SceneUpdate();
-    alert("Your Score is " + score + " with survival time " + sec + " second");
+    alert("Your Score is " + score + " with survival time " + Math.floor(sec) + " second");
 
     score = 0;
     time = 0;
     
-    document.getElementById("score").innerHTML="Score <br>" + score;
-    document.getElementById("time").innerHTML="Time <br>" + sec;
+    document.getElementById("score").innerHTML="Score<br>" + score +"<br>Time<br>" + Math.floor(sec);
 }
 
 function InitStats() {

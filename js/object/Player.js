@@ -74,7 +74,7 @@ function Click(e){
         ballBody.position.set(x,y,z);
         ballMesh.position.set(x,y,z);
         score--;
-        document.getElementById("score").innerHTML="Score <br>" + score;
+        document.getElementById("score").innerHTML="Score<br>" + score +"<br>Time<br>" + Math.floor(sec);
     }
 }
 
@@ -114,11 +114,11 @@ function BulletMovement(){
                         world.removeBody(balls[i]);
                         scene.remove(enemyMeshes[j]);
                         world.remove(enemyBodies[j]);
-                        score+=3;
+                        score+=2;
                         if(score>=0){
                             score=0;
                         }
-                        document.getElementById("score").innerHTML="Score <br>" + score;
+                        document.getElementById("score").innerHTML="Score<br>" + score +"<br>Time<br>" + Math.floor(sec);
                         ballMeshes.splice(i,1);
                         balls.splice(i,1);
                         enemyBodies.splice(j,1);

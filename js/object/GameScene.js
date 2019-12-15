@@ -31,7 +31,7 @@ var cityBlocks = [  [110, 100, 0, 10, 100, 100],  // I s e l
 
 var sec = 0,sekon=0;
 var frame = 0;
-var spawnInterval = Math.floor(Math.random() * 3) + 1;
+var spawnInterval = Math.round(Math.random()) + 1;
 var lastSpawned = 0;
 // var rS = new rStats();
                     
@@ -195,9 +195,9 @@ function SceneUpdate(){
 
         frame += 1;
 
-        if(frame == 30){
+        if(frame == 15){
             frame = 0;
-            sec = sec + 1/2;
+            sec = sec + 1/4;
             sekon+=1;
             
             if((sekon -lastSpawned) == spawnInterval){
@@ -218,8 +218,7 @@ function SceneUpdate(){
     // for(var i=0; i<SpiderBodies.length; i++) {
     //     UpdateSpider(i);
     // }
-    document.getElementById("score").innerHTML="Score <br>" + score;
-    document.getElementById("time").innerHTML="Time <br>" + sec;
+    document.getElementById("score").innerHTML="Score<br>" + score +"<br>Time<br>" + Math.floor(sec);
     
     controls.update( Date.now() - time );
 
