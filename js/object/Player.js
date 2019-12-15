@@ -11,7 +11,7 @@ function InitPlayer(){
     playerBody.position.set(Math.random()*100-50,50,Math.random()*100-50);
     playerBody.linearDamping = 0.9;
     // Player Mesh
-    var sphereGeometry = new THREE.SphereGeometry(radius);
+    var sphereGeometry = new THREE.SphereGeometry(radius,32,32);
     var sphereMaterial = new THREE.MeshLambertMaterial({color: 0xffff00});
     playerMesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
     playerMesh.position.copy(playerBody.position);
@@ -89,7 +89,7 @@ function BulletMovement(){
             if(ballMeshes[i].position.z>=-300 && ballMeshes[i].position.z<=300){
                 if(ballMeshes[i].position.y>=-1 && ballMeshes[i].position.y<=1){
                     scene.remove(ballMeshes[i]);
-                    world.remove(balls[i]);
+                    world.removeBody(balls[i]);
                     ballMeshes.splice(i,1);
                     balls.splice(i,1);
                     i--;
@@ -97,9 +97,12 @@ function BulletMovement(){
             }
         }
         for(j=0;j<enemyMeshes.length;j++){
-            if(ballMeshes[i].position.x + 1.4 >= enemyMeshes[j].position.x && ballMeshes[i].position.x - 1.4 <= enemyMeshes[j].position.x){
-                if(ballMeshes[i].position.y + 1.4 >= enemyMeshes[j].position.y && ballMeshes[i].position.y - 1.4 <= enemyMeshes[j].position.y){
-                    if(ballMeshes[i].position.z + 1.4 >= enemyMeshes[j].position.z && ballMeshes[i].position.z - 1.4 <= enemyMeshes[j].position.z){
+            if(ballMeshes[i].position.x + 1.4 >= enemyMeshes[j].position.x && 
+                ballMeshes[i].position.x - 1.4 <= enemyMeshes[j].position.x){
+                if(ballMeshes[i].position.y + 1.4 >= enemyMeshes[j].position.y && 
+                    ballMeshes[i].position.y - 1.4 <= enemyMeshes[j].position.y){
+                    if(ballMeshes[i].position.z + 1.4 >= enemyMeshes[j].position.z && 
+                        ballMeshes[i].position.z - 1.4 <= enemyMeshes[j].position.z){
                         scene.remove(ballMeshes[i]);
                         world.removeBody(balls[i]);
                         scene.remove(enemyMeshes[j]);

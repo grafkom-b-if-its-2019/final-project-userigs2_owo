@@ -10,6 +10,10 @@ for(i=0,a=1;i<3;i++){
 }
 
 function Init(){
+    renderer = new THREE.WebGLRenderer();
+    renderer.shadowMapEnabled = true;
+    renderer.shadowMapType = THREE.PCFSoftShadowMap;
+
     Start();
     InitWorld();
     InitScene();
@@ -17,8 +21,6 @@ function Init(){
 
     stat = InitStats();
 
-    renderer = new THREE.WebGLRenderer();
-    renderer.shadowMapEnabled = true;
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0xffffff, 0.5);
     // renderer.vr.enabled = true;
