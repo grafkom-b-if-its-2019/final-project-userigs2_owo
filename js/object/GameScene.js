@@ -158,7 +158,14 @@ function InitScene(){
             cityBlocks[i][5],
             i)
     }
-    
+    /////////////////////////////////////////////////////////////////////////////////////Audio//////////////////////////////////////////////////////////////////////////////////////////////
+    var listener=new THREE.AudioListener();
+    scene.add(listener);
+    var sound = new THREE.Audio( listener );
+    sound.load('sound/Bug Maze.mp3');
+    sound.autoplay=true;
+    sound.setLoop(true);
+    scene.add(sound);
 }
 
 function InitGameObject(){
