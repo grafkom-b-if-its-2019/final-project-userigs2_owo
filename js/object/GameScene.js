@@ -193,7 +193,7 @@ function SceneUpdate(){
     for(var i=0; i<enemyBodies.length; i++) {
         UpdateEnemy(i);
    }
-   document.getElementById("time").innerHTML="Time : " + sec;
+   document.getElementById("score").innerHTML="Score : " + score +"<br>Time : "+ sec;
     
     controls.update( Date.now() - time );
 

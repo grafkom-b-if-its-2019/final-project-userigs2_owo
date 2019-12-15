@@ -129,6 +129,8 @@ function Restart() {
     Start();
     InitGameObject();
     SceneUpdate();
+    alert("Your Score is " + score + " with survival time " + sec + " second");
+    document.getElementById("score").innerHTML="Score : " + score +"<br>Time : "+ sec;
 }
 
 function InitStats() {

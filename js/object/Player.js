@@ -67,7 +67,7 @@ function PlayerShoot(){
             ballBody.position.set(x,y,z);
             ballMesh.position.set(x,y,z);
             score--;
-            document.getElementById("score").innerHTML="Score : " + score;
+            document.getElementById("score").innerHTML="Score : " + score +"<br>Time : "+ sec;
         }
     });
 }
@@ -109,7 +109,7 @@ function BulletMovement(){
                         if(score>=0){
                             score=0;
                         }
-                        document.getElementById("score").innerHTML="Score : " + score;
+                        document.getElementById("score").innerHTML="Score : " + score +"<br>Time : "+ sec;
                         ballMeshes.splice(i,1);
                         balls.splice(i,1);
                         enemyBodies.splice(j,1);
