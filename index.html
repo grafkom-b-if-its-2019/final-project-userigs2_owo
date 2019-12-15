@@ -75,26 +75,29 @@
                 z-index: 1;
             }
             #score{
+                margin-left: 1%;
+                padding-right: 1%;
+                border: 2px solid white;
+                border-radius: 5px;
+                margin-top: 1%;
+                text-align: center;
+                position: absolute;
+                z-index: 2;
+                color: white;
+                font-size: x-large;
+                padding-left: 1%;
+            }
+            /* #time{
                 margin-left: 0;
                 border: 2px solid white;
-                margin-top: 0;
-                text-align: left;
+                border-radius: 5px;
+                text-align: center;
                 position: relative;
                 z-index: 2;
                 color: white;
                 font-size: x-large;
                 padding-left: 3px;
-            }
-            #time{
-                margin-left: 0;
-                border: 2px solid white;
-                text-align: left;
-                position: relative;
-                z-index: 2;
-                color: white;
-                font-size: x-large;
-                padding-left: 3px;
-            }
+            } */
 
             #crosshair{
                 position: absolute;
@@ -116,14 +119,15 @@
                 left: 46%;
             } */
 
-            #border{
+            /* #border{
                 margin-top: 1%;
+                border: 2px solid white;
                 border-radius: 5px;
                 width: 8%;
-                height: 10%;
+                height: 15%;
                 position: absolute;
                 text-align:right;
-            }  
+            }   */
 
         </style>
     </head>
@@ -132,10 +136,12 @@
         
         <div id="Stats-output"></div>
 
-        <div id="border">
+        <!-- <div id="border">
             <div id="score">Score : 0</div>
             <div id="time">Time :  0</div>    
-        </div>
+        </div> -->
+
+        <div id="score"></div>
 
         <div id="crosshair">+</div>
 

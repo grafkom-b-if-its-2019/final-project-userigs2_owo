@@ -26,9 +26,9 @@ var cityBlocks = [  [110, 100, 0, 10, 100, 100],  // I s e l
                     [-53, 5, -25, 5, 5, 15],
                     [60, 20, 20, 5, 10, 35]];
 
-var sec = 0;
+var sec = 0,sekon=0;
 var frame = 0;
-var spawnInterval = Math.floor(Math.random() * 3) + 1;
+var spawnInterval = Math.round(Math.random()) + 1;
 var lastSpawned = 0;
 // var rS = new rStats();
                     
@@ -51,13 +51,13 @@ function InitWorld(){
     else
         world.solver = solver;
 
-    world.gravity.set(0,-30,0);
+    world.gravity.set(0,-25,0);
     world.broadphase = new CANNON.NaiveBroadphase();
 
     // Create a slippery material (friction coefficient = 0.0)
     physicsMaterial = new CANNON.Material("slipperyMaterial");
     physicsContactMaterial = new CANNON.ContactMaterial(physicsMaterial, 
-        physicsMaterial, 0.0, 0.3);
+        physicsMaterial, 0.0, 0.0);
     
     // Add material to the world
     world.addContactMaterial(physicsContactMaterial);
@@ -184,13 +184,14 @@ function SceneUpdate(){
 
         frame += 1;
 
-        if(frame == 60){
+        if(frame == 15){
             frame = 0;
-            sec += 1;
+            sec = sec + 1/4;
+            sekon+=1;
             
-            if((sec -lastSpawned) == spawnInterval){
-                lastSpawned = sec;
-                spawnInterval = Math.round(Math.random() * 2)+1;
+            if((sekon -lastSpawned) == spawnInterval){
+                lastSpawned = sekon;
+                spawnInterval = Math.round(Math.random())+1;
 
                 console.log("spawn interval: " + spawnInterval);
 
@@ -206,8 +207,7 @@ function SceneUpdate(){
     // for(var i=0; i<SpiderBodies.length; i++) {
     //     UpdateSpider(i);
     // }
-    document.getElementById("score").innerHTML="Score : " + score;
-    document.getElementById("time").innerHTML="Time : " + sec;
+    document.getElementById("score").innerHTML="Score<br>" + score +"<br>Time<br>" + Math.floor(sec);
     
     controls.update( Date.now() - time );
     topCamera.lookAt(new THREE.Vector3(playerMesh.position.x, 0, playerMesh.position.z));
