@@ -169,7 +169,7 @@ function SceneUpdate(){
             
             if((sec -lastSpawned) == spawnInterval){
                 lastSpawned = sec;
-                spawnInterval = Math.floor(Math.random() * 3);
+                spawnInterval = Math.round(Math.random() * 2)+1;
 
                 console.log("spawn interval: " + spawnInterval);
 
