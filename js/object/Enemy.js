@@ -54,6 +54,12 @@ function UpdateEnemy(i){
                     scene.remove(enemyMeshes[j]);
                     world.removeBody(enemyBodies[j]);
                 }
+                for(j=0;j<ballMeshes.length;j++){
+                    scene.remove(ballMeshes[j]);
+                    world.removeBody(balls[j]);
+                }
+                ballMeshes=[];
+                balls=[];
                 enemyMeshes=[];
                 enemyBodies=[];
                 scene.remove(playerMesh);

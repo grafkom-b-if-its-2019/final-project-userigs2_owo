@@ -1,5 +1,7 @@
 var playerMesh;
 var playerBody;
+// var ballMeshes;
+// var balls;
 
 function InitPlayer(){
     // Player Body
