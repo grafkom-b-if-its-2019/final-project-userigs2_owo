@@ -19,7 +19,7 @@ var cityBlocks = [  [110, 100, 0, 10, 100, 100],  // I s e l
                     [80, 1, 10, 5, 1, 5],           // D  E   R
                     [-18, 10, 50, 15, 10, 50],
                     [30, 5, 20, 30, 5, 20],
-                    [0, 45, -48, 18, 45, 18],       // Skyscrapper
+                    [0, 25, -48, 18, 25, 18],       // Skyscrapper
                     [-25, 5, -15, 20, 5, 10],
                     [-45, 10, -25, 5, 5, 50],
                     [-60, 20, -25, 5, 10, 15],
@@ -73,7 +73,7 @@ function InitWorld(){
 function InitScene(){
     
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-    topCamera = new THREE.OrthographicCamera(-25, 25, 25, -25, 0.1, 1000);
+    topCamera = new THREE.OrthographicCamera(-50, 50, 50, -50, 0.1, 1000);
     topCamera.up.set(0,0,-1);
 
     scene = new THREE.Scene();
@@ -146,7 +146,6 @@ function InitScene(){
     planeMesh.castShadow = true;
     planeMesh.receiveShadow = true;
     scene.add(planeMesh);
-
   
     ///////////////////////////////////////////////////////////////////////////////// Building /////////////////////////////////////////////////////////////////////////////////////////////
     for(var i=0; i<cityBlocks.length; i++) {
@@ -216,7 +215,7 @@ function SceneUpdate(){
     
     renderer.setViewport(0, 0, window.innerWidth, window.innerHeight);
     renderer.render( scene, camera );
-    renderer.setViewport(0, 0, 200, 200);
+    renderer.setViewport(window.innerWidth*4/5, 0, window.innerWidth/5, window.innerWidth/5);
     renderer.render( scene, topCamera);
     time = Date.now();
 }
