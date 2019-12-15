@@ -135,12 +135,17 @@ function Start(){
 }
 
 function Restart() {
-    
+    window.removeEventListener("click",Click);
     Start();
     InitGameObject();
     SceneUpdate();
-    alert("Your Score is " + score + " with survival time " + Math.round(sec) + " second");
-    document.getElementById("score").innerHTML="Score : " + score +"<br>Time : "+ Math.round(sec);
+    alert("Your Score is " + score + " with survival time " + sec + " second");
+
+    score = 0;
+    time = 0;
+    
+    document.getElementById("score").innerHTML="Score <br>" + score;
+    document.getElementById("time").innerHTML="Time <br>" + sec;
 }
 
 function InitStats() {
@@ -150,7 +155,7 @@ function InitStats() {
 
     // Align top-left
     stats.domElement.style.position = 'absolute';
-    stats.domElement.style.left = '0px';
+    stats.domElement.style.right = '0px';
     stats.domElement.style.top = '0px';
 
     document.getElementById("Stats-output").appendChild(stats.domElement);
