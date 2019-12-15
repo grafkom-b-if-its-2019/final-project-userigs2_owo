@@ -1,5 +1,5 @@
 var Enemies = []
-
+var posa=0,posb=0;
 var enemyBodies = []
 var enemyMeshes = []
 
@@ -9,9 +9,27 @@ function InitEnemy() {
 }
 
 function SpawnEnemyRandom(){     
-    x = Math.floor(Math.random() * 150) - 75;     
-    y = 50;     
-    z = Math.floor(Math.random() * 150) - 75;      
+    var x=0,y=0,z=0;
+    do{
+        x = Math.round(Math.random())*75 - Math.round(Math.random())*75 + playerBody.position.x;     
+        y = Math.random() * 25 + playerBody.position.y;     
+        z = Math.round(Math.random())*75 - Math.round(Math.random())*75 + playerBody.position.z;     
+    }while(x==playerBody.position.x&&z==playerBody.position.z)
+    // x=75;y=50;z=0; 
+    if(x>playerBody.position.x){
+        posa=1;
+    }else if(x<playerBody.position.x){
+        posa=0;
+    }else {
+        posa=2;
+    }
+    if(z>playerBody.position.z){
+        pob=1;
+    }else if(z<playerBody.position.z){
+        posb=0;
+    }else {
+        posb=2;
+    }
     Enemies.push(new enemy(x,y,z)) 
 }
 
@@ -19,7 +37,25 @@ function SpawnEnemyRandom(){
 // Area 2:
 
 var enemy = function(x,y,z) {
-
+    var a=0,b=0,vel=50;
+    if(posa==0){
+        a=vel;
+    }
+    if(posb==0){
+        b=vel;
+    }
+    if(posa==1){
+        a=-vel;
+    }
+    if(posb==1){
+        b=-vel;
+    }
+    if(posa==2){
+        a=0;
+    }
+    if(posb==2){
+        b=0;
+    }
     //placeholder model
     var EnemyShape = new CANNON.Sphere(1.3);
     var EnemyBody = new CANNON.Body({mass:5,collisionFilterGroup:g[2],collisionFilterMask:g[0]|g[1]});
@@ -34,8 +70,7 @@ var enemy = function(x,y,z) {
     
     EnemyBody.position.set(x,y,z);
     EnemyMesh.position.copy(EnemyBody.position);
-
-    EnemyBody.velocity.set(100,25,0);
+    EnemyBody.velocity.set(a,0,b);
     
     // EnemyBody.linearDamping = 0.2;
     

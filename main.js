@@ -9,6 +9,13 @@ for(i=0,a=1;i<3;i++){
     a=a*2;
 }
 
+// var enemyMaterial = new CANNON.Material("enemyMaterial");
+// var wallMaterial = new CANNON.Material("wallMaterial");
+// var enemy_wall_contact = new CANNON.ContactMaterial(wallMaterial,enemyMaterial, {
+//     friction: 0,
+//     restitution: 0
+// })
+
 function Init(){
     renderer = new THREE.WebGLRenderer();
     renderer.shadowMapEnabled = true;
@@ -128,11 +135,12 @@ function Start(){
 }
 
 function Restart() {
+    
     Start();
     InitGameObject();
     SceneUpdate();
-    alert("Your Score is " + score + " with survival time " + sec + " second");
-    document.getElementById("score").innerHTML="Score : " + score +"<br>Time : "+ sec;
+    alert("Your Score is " + score + " with survival time " + Math.round(sec) + " second");
+    document.getElementById("score").innerHTML="Score : " + score +"<br>Time : "+ Math.round(sec);
 }
 
 function InitStats() {
