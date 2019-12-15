@@ -217,8 +217,8 @@ function SceneUpdate(){
     // for(var i=0; i<SpiderBodies.length; i++) {
     //     UpdateSpider(i);
     // }
-    document.getElementById("score").innerHTML="Score : " + score;
-    document.getElementById("time").innerHTML="Time : " + sec;
+    document.getElementById("score").innerHTML="Score <br>" + score;
+    document.getElementById("time").innerHTML="Time <br>" + sec;
     
     controls.update( Date.now() - time );
 

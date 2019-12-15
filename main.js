@@ -136,8 +136,8 @@ function Restart() {
     score = 0;
     time = 0;
     
-    document.getElementById("score").innerHTML="Score : " + score;
-    document.getElementById("time").innerHTML="Time : " + sec;
+    document.getElementById("score").innerHTML="Score <br>" + score;
+    document.getElementById("time").innerHTML="Time <br>" + sec;
 }
 
 function InitStats() {
