@@ -34,11 +34,6 @@ function PlayerShoot(){
     ballGeometry = new THREE.SphereGeometry(ballShape.radius, 32, 32);
     shootDirection = new THREE.Vector3();
     shootVelo = 90;
-
-    
-    
-    
-    // projector = new THREE.Projector();
     window.addEventListener("click",Click);
 }
 

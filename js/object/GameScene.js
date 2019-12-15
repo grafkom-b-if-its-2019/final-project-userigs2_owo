@@ -134,9 +134,9 @@ function InitScene(){
 
     ///////////////////////////////////////////////////////////////////////////////// Ground /////////////////////////////////////////////////////////////////////////////////////////////
 
-    var geoPlane = new THREE.PlaneGeometry( 200, 200, 1, 1);
+    var geoPlane = new THREE.PlaneBufferGeometry( 200, 200, 1, 1);
     geoPlane.applyMatrix(new THREE.Matrix4().makeRotationX( -Math.PI / 2));
-    var grassTexture = THREE.ImageUtils.loadTexture('./assets/textures/grass01.jpg');
+    var grassTexture = THREE.ImageUtils.loadTexture('./assets/textures/ground/grass01.jpg');
 
     var planeMaterial = new THREE.MeshPhongMaterial({map: grassTexture});
     planeMaterial.map.wrapS = planeMaterial.map.wrapT = THREE.RepeatWrapping;
@@ -158,14 +158,6 @@ function InitScene(){
             cityBlocks[i][5],
             i)
     }
-    // /////////////////////////////////////////////////////////////////////////////////////Audio//////////////////////////////////////////////////////////////////////////////////////////////
-    // var listener=new THREE.AudioListener();
-    // scene.add(listener);
-    // var sound = new THREE.Audio( listener );
-    // sound.load('sound/Bug Maze.mp3');
-    // sound.autoplay=true;
-    // sound.setLoop(true);
-    // scene.add(sound);
 }
 
 function InitGameObject(){
