@@ -134,9 +134,9 @@ function InitScene(){
 
     ///////////////////////////////////////////////////////////////////////////////// Ground /////////////////////////////////////////////////////////////////////////////////////////////
 
-    var geoPlane = new THREE.PlaneGeometry( 200, 200, 1, 1);
+    var geoPlane = new THREE.PlaneBufferGeometry( 200, 200, 1, 1);
     geoPlane.applyMatrix(new THREE.Matrix4().makeRotationX( -Math.PI / 2));
-    var grassTexture = THREE.ImageUtils.loadTexture('./assets/textures/grass01.jpg');
+    var grassTexture = THREE.ImageUtils.loadTexture('./assets/textures/ground/grass01.jpg');
 
     var planeMaterial = new THREE.MeshPhongMaterial({map: grassTexture});
     planeMaterial.map.wrapS = planeMaterial.map.wrapT = THREE.RepeatWrapping;
@@ -158,7 +158,6 @@ function InitScene(){
             cityBlocks[i][5],
             i)
     }
-    
 }
 
 function InitGameObject(){
@@ -168,7 +167,7 @@ function InitGameObject(){
     scene.add(controls.getObject());
 
     InitEnemy();
-    // InitSpider();
+    InitSpider();
 
 }
 
@@ -192,7 +191,7 @@ function SceneUpdate(){
                 lastSpawned = sekon;
                 spawnInterval = Math.round(Math.random())+1;
 
-                console.log("spawn interval: " + spawnInterval);
+                // console.log("spawn interval: " + spawnInterval);
 
                 SpawnEnemyRandom();
             }

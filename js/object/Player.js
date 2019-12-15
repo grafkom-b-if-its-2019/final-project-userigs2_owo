@@ -5,7 +5,10 @@ var ballShape;
 var ballGeometry;
 var shootDirection;
 var shootVelo;
-var projector;
+var clock = new THREE.Clock();
+var particleGroup=[], particleAttributes;
+var particles=[];
+var bulletTime=[];
 
 function InitPlayer(){
     // Player Body
@@ -31,7 +34,6 @@ function PlayerShoot(){
     ballGeometry = new THREE.SphereGeometry(ballShape.radius, 32, 32);
     shootDirection = new THREE.Vector3();
     shootVelo = 90;
-    projector = new THREE.Projector();
     window.addEventListener("click",Click);
 }
 
@@ -52,16 +54,46 @@ function Click(e){
         ballBody.addShape(ballShape);
         var bulletMaterial = new THREE.MeshBasicMaterial({ color: 0xff00ff });
         var ballMesh = new THREE.Mesh( ballGeometry, bulletMaterial );
+
+        var particleTexture = THREE.ImageUtils.loadTexture('./assets/textures/particles/star_08.png');
+        particleGroup = new THREE.Object3D();
+        particleAttributes = {
+            starSize: [],
+            starPosition: [],
+            randomness: []
+        };
+        var totalParticles = 200;
+        var radiusRange = 1;
+        for(var i=0; i < totalParticles; i++) {
+            var spriteMaterial = new THREE.SpriteMaterial( {
+                map: particleTexture,
+                useScreenCoordinates: false,
+                color: 0x00000
+            });
+            var sprite = new THREE.Sprite( spriteMaterial );
+            sprite.scale.set(1, 1, 1);
+            sprite.position.set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5);
+            // sprite.position.setLength( radiusRange * Math.random());
+            sprite.position.setLength( radiusRange * (Math.random() * 0.1 + 0.9) );
+            sprite.material.color.setHSL( Math.random(), 0.9, 0.7 );
+            sprite.opacity = 0.80; // translucent particles
+            sprite.material.blending = THREE.AdditiveBlending; // Glowing Effect
+            sprite.renderOrder = -1;
+            particleGroup.add( sprite );
+            particleAttributes.starPosition.push( sprite.position.clone() );
+            particleAttributes.randomness.push( Math.random() );
+        }
+        particleGroup.position.z = -0.1;
+
         world.addBody(ballBody);
         scene.add(ballMesh);
-        // ballBody.addEventListener('collide',function(){
-        //     world.removeBody(ballBody);
-        //     scene.remove(ballMesh);
-        // });
+        scene.add( particleGroup );
         ballMesh.castShadow = true;
         ballMesh.receiveShadow = true;
         balls.push(ballBody);
         ballMeshes.push(ballMesh);
+        particles.push( particleGroup );
+        bulletTime.push(0);
         getShootDir(shootDirection);
         ballBody.velocity.set(  shootDirection.x * shootVelo,
                                 shootDirection.y * shootVelo,
@@ -82,49 +114,80 @@ function BulletMovement(){
     for(var i=0; i<balls.length; i++){
         ballMeshes[i].position.copy(balls[i].position);
         ballMeshes[i].quaternion.copy(balls[i].quaternion);
-        // for(j = 0;j<cityBlocks.length;j++){
-        //     if(ballMeshes[i].position.x+0.2>=cityBlocks[j][0]-cityBlocks[j][3] && ballMeshes[i].position.x-0.2<=cityBlocks[j][0]+cityBlocks[j][3]){
-        //         if(ballMeshes[i].position.y+0.2>=cityBlocks[j][1]-cityBlocks[j][4] && ballMeshes[i].position.y-0.2<=cityBlocks[j][1]+cityBlocks[j][4]){
-        //             if(ballMeshes[i].position.z+0.2>=cityBlocks[j][2]-cityBlocks[j][5] && ballMeshes[i].position.z-0.2<=cityBlocks[j][2]+cityBlocks[j][5]){
-        //                 scene.remove(ballMeshes[i]);
-        //                 world.removeBody(balls[i]);
-        //             }
-        //         }
-        //     }
-        // }
-        if(ballMeshes[i].position.x>=-300 && ballMeshes[i].position.x<=300){
-            if(ballMeshes[i].position.z>=-300 && ballMeshes[i].position.z<=300){
-                if(ballMeshes[i].position.y>=-1 && ballMeshes[i].position.y<=1){
-                    scene.remove(ballMeshes[i]);
-                    world.removeBody(balls[i]);
-                    ballMeshes.splice(i,1);
-                    balls.splice(i,1);
-                    i--;
+        particles[i].position.copy(balls[i].position);
+        if(bulletTime[i]>300) {
+            scene.remove(ballMeshes[i]);
+            scene.remove(particles[i]);
+            world.removeBody(balls[i]);
+            ballMeshes.splice(i,1);
+            particles.splice(i,1);
+            balls.splice(i,1);
+            bulletTime.splice(i,1);
+            i--;
+        }
+        else {
+            bulletTime[i]++;
+    
+            var time = 4 * clock.getElapsedTime();
+        
+            for ( var c = 0; c < particles[i].children.length; c ++ ) 
+            {
+                var sprite = particles[i].children[ c ];
+    
+                // particle wiggle
+                var wiggleScale = 2;
+                sprite.position.x += wiggleScale * (Math.random() - 0.5);
+                sprite.position.y += wiggleScale * (Math.random() - 0.5);
+                sprite.position.z += wiggleScale * (Math.random() - 0.5);
+                
+                // pulse away/towards center
+                // individual rates of movement
+                var a = particleAttributes.randomness[c] + 1;
+                var pulseFactor = Math.sin(a * time) * 0.1 + 0.9;
+                sprite.position.x = particleAttributes.starPosition[c].x * pulseFactor;
+                sprite.position.y = particleAttributes.starPosition[c].y * pulseFactor;
+                sprite.position.z = particleAttributes.starPosition[c].z * pulseFactor;	
+            }
+            particles[i].rotation.y = time * 0.75;
+    
+            if(ballMeshes[i].position.x>=-300 && ballMeshes[i].position.x<=300){
+                if(ballMeshes[i].position.z>=-300 && ballMeshes[i].position.z<=300){
+                    if(ballMeshes[i].position.y>=-1 && ballMeshes[i].position.y<=1){
+                        scene.remove(ballMeshes[i]);
+                        scene.remove(particles[i]);
+                        world.removeBody(balls[i]);
+                        ballMeshes.splice(i,1);
+                        particles.splice(i,1);
+                        balls.splice(i,1);
+                        i--;
+                    }
                 }
             }
-        }
-        for(j=0;j<enemyMeshes.length;j++){
-            if(ballMeshes[i].position.x + 1.4 >= enemyMeshes[j].position.x && 
-                ballMeshes[i].position.x - 1.4 <= enemyMeshes[j].position.x){
-                if(ballMeshes[i].position.y + 1.4 >= enemyMeshes[j].position.y && 
-                    ballMeshes[i].position.y - 1.4 <= enemyMeshes[j].position.y){
-                    if(ballMeshes[i].position.z + 1.4 >= enemyMeshes[j].position.z && 
-                        ballMeshes[i].position.z - 1.4 <= enemyMeshes[j].position.z){
-                        scene.remove(ballMeshes[i]);
-                        world.removeBody(balls[i]);
-                        scene.remove(enemyMeshes[j]);
-                        world.remove(enemyBodies[j]);
-                        score+=2;
-                        if(score>=0){
-                            score=0;
+            for(j=0;j<enemyMeshes.length;j++){
+                if(ballMeshes[i].position.x + 1.4 >= enemyMeshes[j].position.x && 
+                    ballMeshes[i].position.x - 1.4 <= enemyMeshes[j].position.x){
+                    if(ballMeshes[i].position.y + 1.4 >= enemyMeshes[j].position.y && 
+                        ballMeshes[i].position.y - 1.4 <= enemyMeshes[j].position.y){
+                        if(ballMeshes[i].position.z + 1.4 >= enemyMeshes[j].position.z && 
+                            ballMeshes[i].position.z - 1.4 <= enemyMeshes[j].position.z){
+                            scene.remove(ballMeshes[i]);
+                            scene.remove(particles[i]);
+                            world.removeBody(balls[i]);
+                            scene.remove(enemyMeshes[j]);
+                            world.remove(enemyBodies[j]);
+                            score+=2;
+                            if(score>=0){
+                                score=0;
+                            }
+                            document.getElementById("score").innerHTML="Score<br>" + score +"<br>Time<br>" + Math.floor(sec);
+                            ballMeshes.splice(i,1);
+                            balls.splice(i,1);
+                            particles.splice(i,1);
+                            enemyBodies.splice(j,1);
+                            enemyMeshes.splice(j,1);
+                            i--;
+                            j--;
                         }
-                        document.getElementById("score").innerHTML="Score<br>" + score +"<br>Time<br>" + Math.floor(sec);
-                        ballMeshes.splice(i,1);
-                        balls.splice(i,1);
-                        enemyBodies.splice(j,1);
-                        enemyMeshes.splice(j,1);
-                        i--;
-                        j--;
                     }
                 }
             }
