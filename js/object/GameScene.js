@@ -9,7 +9,11 @@ var cityBlocks = [  [-150, 30, 0, 30, 30, 150],     // Boundary West
                     [-18, 10, 50, 15, 10, 50],
                     [30, 5, 20, 30, 5, 20],
                     [-25, 5, -15, 20, 5, 10],
-                    [-43, 15, -5, 10, 5, 30]];
+                    [-43, 15, -5, 10, 5, 30],
+                    // [5, 0.5, -150, 120, 0.5, 120],      // Pyramid ??
+                    // [-55, 2, -150, 50, 1.5, 120],
+                    // [50, 2, -150, 50, 1.5, 120]
+                  ];  
 
 var sec = 0;
 var frame = 0;
@@ -35,7 +39,7 @@ function InitWorld(){
     else
         world.solver = solver;
 
-    world.gravity.set(0,-20,0);
+    world.gravity.set(0,-30,0);
     world.broadphase = new CANNON.NaiveBroadphase();
 
     // Create a slippery material (friction coefficient = 0.0)
@@ -116,11 +120,13 @@ function InitScene(){
     
 
     // floor
-    geoPlane = new THREE.PlaneGeometry( 300, 300, 1, 1);
+    var geoPlane = new THREE.PlaneGeometry( 300, 300, 1, 1);
     geoPlane.applyMatrix(new THREE.Matrix4().makeRotationX( -Math.PI / 2));
-    var grassTexture = THREE.ImageUtils.loadTexture('./assets/textures/grass01.png');
+    var grassTexture = THREE.ImageUtils.loadTexture('./assets/textures/grass01.jpg');
 
-    planeMaterial = new THREE.MeshPhongMaterial({map: grassTexture});
+    var planeMaterial = new THREE.MeshPhongMaterial({map: grassTexture});
+    planeMaterial.map.wrapS = planeMaterial.map.wrapT = THREE.RepeatWrapping;
+    planeMaterial.map.repeat.set(300,300);
     planeMesh = new THREE.Mesh(geoPlane, planeMaterial);
     
 
@@ -139,7 +145,7 @@ function InitScene(){
             cityBlocks[i][5],
             i)
     }
-    console.log('addada' + cityBlocks.length);
+    
 }
 
 function InitGameObject(){
@@ -149,6 +155,7 @@ function InitGameObject(){
     scene.add(controls.getObject());
 
     InitEnemy();
+    InitSpider();
 
 }
 

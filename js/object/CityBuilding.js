@@ -15,9 +15,13 @@ var CityBuilding = function(posX,posY,posZ, x, y, z, i){
         texture = THREE.ImageUtils.loadTexture('./assets/textures/wall/wall02.JPG');
     }
     else{
-        texture = THREE.ImageUtils.loadTexture('./assets/textures/wall/wall01.JPG');
+        texture = THREE.ImageUtils.loadTexture('./assets/textures/wall/wall01.JPG',);
     }
-    var boxMaterial = new THREE.MeshBasicMaterial({ map: texture });
+    var boxMaterial = new THREE.MeshPhongMaterial({
+         
+        map: texture });
+    boxMaterial.map.wrapS = boxMaterial.map.wrapT = THREE.RepeatWrapping;
+    boxMaterial.map.repeat.set(x,y);
     boxMesh = new THREE.Mesh( boxGeometry, boxMaterial );
     boxMesh.castShadow = true;
     boxMesh.receiveShadow = true;
