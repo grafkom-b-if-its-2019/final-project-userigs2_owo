@@ -1,10 +1,19 @@
 var playerBody, playerMesh;
 var mass = 5, radius = 1.3;
 var building;
-var cityBlocks = [  [-100, 5, 0, 10, 5, 100],     // Boundary West
-                    [100, 5, 0, 10, 5, 100],      // Boundary East
-                    [0, 5, 100, 100, 5, 10],      // Boundary South
-                    [0, 5, -100, 100, 5, 10],     // Boundary North
+// var boundaryLoc = [   [-110, 100, 0, 10, 100, 100],
+//                       [110, 100, 0, 10, 100, 100],
+//                       [0, 100, 110, 100, 100, 10],
+//                       [0, 100, -110, 100, 100, 10]];
+
+var cityBlocks = [  [110, 100, 0, 10, 100, 100],  // I s e l
+                    [-110, 100, 0, 10, 100, 100], // n i   l
+                    [0, 100, -110, 100, 100, 10], // v b w
+                    [0, 100, 110, 100, 100, 10],  // i l a
+                    [-100, 5, 0, 10, 5, 100],     // Wall West
+                    [100, 5, 0, 10, 5, 100],      // Wall East
+                    [0, 5, 100, 100, 5, 10],      // Wall South
+                    [0, 5, -100, 100, 5, 10],     // Wall North
                     [50, 10, -20, 50, 10, 5],
                     [-90, 10, 0, 35, 10, 5],  
                     [85, 4, 0, 5, 4, 5],            // L
@@ -62,6 +71,16 @@ function InitWorld(){
     groundBody.addShape(groundShape);
     groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1,0,0),-Math.PI/2);
     world.addBody(groundBody);
+
+    // var boundaries = [];
+    // for(var i=0; i<boundaryLoc.length; i++) {
+    //   var boundaryShape = new CANNON.Box(new CANNON.Vec3(boundaryLoc[3],boundaryLoc[4],boundaryLoc[5]));
+    //   var boundaryBody = new CANNON.Body({ mass: 0, collisionFilterGroup:g[1],collisionFilterMask:g[0]|g[2] });
+    //   boundaryBody.addShape(boundaryShape);
+    //   world.addBody(boundaryBody);
+    //   boundaryBody.position.set(boundaryLoc[0],boundaryLoc[1],boundaryLoc[2]);
+    //   boundaries.push(boundaryBody);
+    // }
 }
 
 function InitScene(){
@@ -115,7 +134,7 @@ function InitScene(){
 
     var light = new THREE.SpotLight( 0xffffff );
     light.castShadow = true;
-    light.position.set(150,200,0);
+    light.position.set(90,200,0);
     light.target.position.set(0,0,0);
     light.intensity = 2;
     
@@ -137,6 +156,8 @@ function InitScene(){
     planeMesh.castShadow = true;
     planeMesh.receiveShadow = true;
     scene.add(planeMesh);
+
+    
 
     // Building
     for(var i=0; i<cityBlocks.length; i++) {

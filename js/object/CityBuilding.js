@@ -10,17 +10,26 @@ var CityBuilding = function(posX,posY,posZ, x, y, z, i){
 
     boxBody = new CANNON.Body({ mass: 0, collisionFilterGroup:g[1],collisionFilterMask:g[0]|g[2] });
     boxBody.addShape(boxShape);
-    var texture;
+    var texture, boxMaterial;
     if(i < 4) {
-        texture = THREE.ImageUtils.loadTexture('./assets/textures/wall/wall02.JPG');
+        boxMaterial = new THREE.MeshPhongMaterial({
+            color : 0xaa00aa,
+            opacity : 0.1,
+            transparent: true
+        })
     }
-    else{
-        texture = THREE.ImageUtils.loadTexture('./assets/textures/wall/wall01.JPG',);
+    else {
+        if(3 < i && i < 8) {
+            texture = THREE.ImageUtils.loadTexture('./assets/textures/wall/wall02.JPG');
+        }
+        else{
+            texture = THREE.ImageUtils.loadTexture('./assets/textures/wall/wall01.JPG',);
+        }
+        boxMaterial = new THREE.MeshPhongMaterial({
+            map: texture });
+        boxMaterial.map.wrapS = boxMaterial.map.wrapT = THREE.RepeatWrapping;
+        boxMaterial.map.repeat.set(x,y);
     }
-    var boxMaterial = new THREE.MeshPhongMaterial({
-        map: texture });
-    boxMaterial.map.wrapS = boxMaterial.map.wrapT = THREE.RepeatWrapping;
-    boxMaterial.map.repeat.set(x,y);
     boxMesh = new THREE.Mesh( boxGeometry, boxMaterial );
     boxMesh.castShadow = true;
     boxMesh.receiveShadow = true;
