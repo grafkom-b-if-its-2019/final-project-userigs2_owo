@@ -128,6 +128,7 @@ function Start(){
 }
 
 function Restart() {
+    window.removeEventListener("click",Click);
     Start();
     InitGameObject();
     SceneUpdate();
