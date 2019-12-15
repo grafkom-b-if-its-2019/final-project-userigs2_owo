@@ -44,7 +44,7 @@ function InitWorld(){
     else
         world.solver = solver;
 
-    world.gravity.set(0,-30,0);
+    world.gravity.set(0,-25,0);
     world.broadphase = new CANNON.NaiveBroadphase();
 
     // Create a slippery material (friction coefficient = 0.0)
