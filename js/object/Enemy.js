@@ -5,20 +5,13 @@ var enemyMeshes = []
 
 function InitEnemy() {
     // placeholder
-    coord = [   [50,10,50],
-                [50,0,50],
-                [-50,0,47]]
-
-
-    for(var i=0; i<coord.length; i++) {
-        Enemies[i] = new enemy(coord[i][0],coord[i][1],coord[i][2]);
-    }
+    SpawnEnemyRandom();
 }
 
 function SpawnEnemyRandom(){     
-    x = Math.floor(Math.random() * 281) - 140;     
+    x = Math.floor(Math.random() * 150) - 75;     
     y = 50;     
-    z = Math.floor(Math.random() * 281) - 140;      
+    z = Math.floor(Math.random() * 150) - 75;      
     Enemies.push(new enemy(x,y,z)) 
 }
 
@@ -57,7 +50,7 @@ function UpdateEnemy(i){
     if(enemyMeshes[i].position.x + 1.4 >= playerMesh.position.x && enemyMeshes[i].position.x - 1.4 <= playerMesh.position.x){
         if(enemyMeshes[i].position.y + 1.4 >= playerMesh.position.y && enemyMeshes[i].position.y - 1.4 <= playerMesh.position.y){
             if(enemyMeshes[i].position.z + 1.4 >= playerMesh.position.z && enemyMeshes[i].position.z - 1.4 <= playerMesh.position.z){
-                for(j=enemyMeshes.length-1;j>=0;j--){
+                for(j=0;j<enemyMeshes.length;j++){
                     scene.remove(enemyMeshes[j]);
                     world.removeBody(enemyBodies[j]);
                 }
@@ -71,8 +64,8 @@ function UpdateEnemy(i){
                 blocker.style.display = '-moz-box';
                 blocker.style.display = 'box';
                 instructions.style.display = '';
-                Start();
-                InitGameObject();
+                Restart();
+
             }
         }
     }

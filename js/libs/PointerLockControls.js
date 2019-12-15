@@ -150,7 +150,7 @@
         if(run==false){
             velocityFactor=0.2;
         }else {
-            velocityFactor=0.5;
+            velocityFactor=0.4;
         }
 
         if ( scope.enabled === false ) return;
