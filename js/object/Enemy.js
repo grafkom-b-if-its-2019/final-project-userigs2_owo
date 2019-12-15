@@ -70,13 +70,13 @@ function UpdateEnemy(i){
                 scene.remove(playerMesh);
                 world.removeBody(playerBody);
                 controls.enabled = false;
-
                 blocker.style.display = '-webkit-box';
                 blocker.style.display = '-moz-box';
                 blocker.style.display = 'box';
                 instructions.style.display = '';
                 Restart();
-
+                score=0;
+                sec=0;
             }
         }
     }

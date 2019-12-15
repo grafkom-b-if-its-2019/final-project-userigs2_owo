@@ -15,6 +15,7 @@
         <script type="text/javascript" src="./js/libs/OBJMTLLoader.js"></script>
         <script type="text/javascript" src="./js/libs/PointerLockControls.js"></script>
         <script type="text/javascript" src="./js/libs/chroma.js"></script>
+        <script type="text/javascript" src="./js/libs/rStats.js"></script>
         <!-- Load Js Object -->
         <script type="text/javascript" src="./js/object/Player.js"></script>
         <script type="text/javascript" src="./js/object/Enemy.js"></script>
@@ -70,8 +71,48 @@
                 text-align: center;
 
                 cursor: pointer;
-
+                z-index: 1;
             }
+            #score{
+                margin-left: 95%;
+                margin-top: 45%;
+                border: 2px solid white;
+                border-radius: 5px;
+                text-align: right;
+                position: absolute;
+                z-index: 2;
+                color: white;
+            }
+            /* #time{
+                margin-left: 94%;
+                margin-top: 49%;
+                border: 2px solid white;
+                border-radius: 5px;
+                text-align: right;
+                position: absolute;
+                z-index: 2;
+                color: white;
+            } */
+
+            #crosshare{
+                position: absolute;
+                width: 100%;
+                text-align: center;
+                z-index: 3;
+                margin-top: 350px;
+                color:white;
+                font-weight: bold;
+                font-size: larger;
+            }
+            /* #border{
+                border:2px solid white;
+                border-radius: 5px;
+                margin-top: 700px;
+                position: absolute;
+                width: 100%;
+                text-align:right;
+                z-index: 2;
+            }   */
 
         </style>
     </head>
@@ -79,8 +120,11 @@
     <body>
         
         <div id="Stats-output"></div>
+        <div id="score">
+            
+        </div>
+        <div id="crosshare">.</div>
         <div id="blocker">
-
             <div id="instructions">
                 <span style="font-size:40px">Click to play</span>
                 <br />
