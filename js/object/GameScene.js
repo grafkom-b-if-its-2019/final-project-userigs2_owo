@@ -188,17 +188,15 @@ function SceneUpdate(){
                 SpawnEnemyRandom();
             }
         }
-        rS().set(sec);
     }
     
     for(var i=0; i<enemyBodies.length; i++) {
         UpdateEnemy(i);
    }
+   document.getElementById("time").innerHTML="Time : " + sec;
     
     controls.update( Date.now() - time );
 
-    rS().update();
-    
     renderer.render( scene, camera );
     time = Date.now();
 }

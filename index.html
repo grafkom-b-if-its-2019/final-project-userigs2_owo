@@ -71,8 +71,46 @@
                 text-align: center;
 
                 cursor: pointer;
-
+                z-index: 1;
             }
+            #score{
+                margin-left: 94%;
+                border: 2px solid white;
+                margin-top: 47%;
+                text-align: right;
+                position: absolute;
+                z-index: 2;
+                color: white;
+            }
+            #time{
+                margin-left: 94%;
+                border: 2px solid white;
+                margin-top: 49%;
+                text-align: right;
+                position: absolute;
+                z-index: 2;
+                color: white;
+            }
+
+            #crosshare{
+                position: absolute;
+                width: 100%;
+                text-align: center;
+                z-index: 3;
+                margin-top: 350px;
+                color:white;
+                font-weight: bold;
+                font-size: larger;
+            }
+            /* #border{
+                border:2px solid white;
+                border-radius: 5px;
+                margin-top: 700px;
+                position: absolute;
+                width: 100%;
+                text-align:right;
+                z-index: 2;
+            }   */
 
         </style>
     </head>
@@ -80,8 +118,12 @@
     <body>
         
         <div id="Stats-output"></div>
+        <!-- <div id="border"> -->
+            <div id="score">Score : 0</div>
+            <div id="time">Time : 0 </div>    
+        <!-- </div> -->
+        <div id="crosshare">.</div>
         <div id="blocker">
-
             <div id="instructions">
                 <span style="font-size:40px">Click to play</span>
                 <br />

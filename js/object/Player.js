@@ -1,7 +1,6 @@
 var playerMesh;
 var playerBody;
-// var ballMeshes;
-// var balls;
+var score=0;
 
 function InitPlayer(){
     // Player Body
@@ -67,6 +66,8 @@ function PlayerShoot(){
             z += shootDirection.z * (playerShape.radius*1.02 + ballShape.radius);
             ballBody.position.set(x,y,z);
             ballMesh.position.set(x,y,z);
+            score--;
+            document.getElementById("score").innerHTML="Score : " + score;
         }
     });
 }
@@ -104,6 +105,11 @@ function BulletMovement(){
                         world.removeBody(balls[i]);
                         scene.remove(enemyMeshes[j]);
                         world.remove(enemyBodies[j]);
+                        score++;
+                        if(score>=0){
+                            score=0;
+                        }
+                        document.getElementById("score").innerHTML="Score : " + score;
                         ballMeshes.splice(i,1);
                         balls.splice(i,1);
                         enemyBodies.splice(j,1);

@@ -65,6 +65,9 @@ function UpdateEnemy(i){
                 scene.remove(playerMesh);
                 world.removeBody(playerBody);
                 controls.enabled = false;
+                score=0;
+                document.getElementById("score").innerHTML="Score : " + score;
+                sec=0;
 
                 blocker.style.display = '-webkit-box';
                 blocker.style.display = '-moz-box';
