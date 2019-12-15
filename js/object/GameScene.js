@@ -23,6 +23,7 @@ var sec = 0;
 var frame = 0;
 var spawnInterval = Math.floor(Math.random() * 3) + 1;
 var lastSpawned = 0;
+var rS = new rStats();
                     
 function InitWorld(){
     //Setup World
@@ -187,6 +188,7 @@ function SceneUpdate(){
                 SpawnEnemyRandom();
             }
         }
+        rS().set(sec);
     }
     
     for(var i=0; i<enemyBodies.length; i++) {
@@ -194,6 +196,8 @@ function SceneUpdate(){
    }
     
     controls.update( Date.now() - time );
+
+    rS().update();
     
     renderer.render( scene, camera );
     time = Date.now();
