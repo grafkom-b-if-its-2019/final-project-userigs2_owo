@@ -57,8 +57,10 @@ function UpdateEnemy(i){
     if(enemyMeshes[i].position.x + 1.4 >= playerMesh.position.x && enemyMeshes[i].position.x - 1.4 <= playerMesh.position.x){
         if(enemyMeshes[i].position.y + 1.4 >= playerMesh.position.y && enemyMeshes[i].position.y - 1.4 <= playerMesh.position.y){
             if(enemyMeshes[i].position.z + 1.4 >= playerMesh.position.z && enemyMeshes[i].position.z - 1.4 <= playerMesh.position.z){
-                scene.remove(enemyMeshes[i]);
-                world.removeBody(enemyBodies[i]);
+                for(j=enemyMeshes.length-1;j>=0;j--){
+                    scene.remove(enemyMeshes[j]);
+                    world.removeBody(enemyBodies[j]);
+                }
                 enemyMeshes=[];
                 enemyBodies=[];
                 scene.remove(playerMesh);
@@ -71,7 +73,6 @@ function UpdateEnemy(i){
                 instructions.style.display = '';
                 Start();
                 InitGameObject();
-
             }
         }
     }
