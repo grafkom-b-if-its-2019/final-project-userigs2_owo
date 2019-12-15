@@ -125,6 +125,12 @@ function Start(){
     document.addEventListener( 'keydown', onKeyDown, false );
 }
 
+function Restart() {
+    Start();
+    InitGameObject();
+    SceneUpdate();
+}
+
 function InitStats() {
 
     var stats = new Stats();

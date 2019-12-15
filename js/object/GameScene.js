@@ -6,14 +6,18 @@ var cityBlocks = [  [-150, 30, 0, 30, 30, 150],     // Boundary West
                     [0, 30, 150, 150, 30, 30],      // Boundary South
                     [0, 30, -150, 150, 30, 30],     // Boundary North
                     [50, 10, -20, 50, 10, 5],
+                    [-90, 15, 0, 35, 10, 5],
+                    [100, 35, 0, 5, 5, 5],
+                    [85, 45, 0, 2, 2, 2],
+                    [85, 30, 0, 5, 5, 5],
                     [-18, 10, 50, 15, 10, 50],
                     [30, 5, 20, 30, 5, 20],
+                    [90, 5, 20, 20, 45, 20],
                     [-25, 5, -15, 20, 5, 10],
-                    [-43, 15, -5, 10, 5, 30],
-                    // [5, 0.5, -150, 120, 0.5, 120],      // Pyramid ??
-                    // [-55, 2, -150, 50, 1.5, 120],
-                    // [50, 2, -150, 50, 1.5, 120]
-                  ];  
+                    [-45, 10, -25, 5, 5, 50],
+                    [-60, 20, -25, 5, 10, 15],
+                    [-53, 5, -25, 5, 5, 15],
+                    [60, 20, 20, 5, 10, 35]];
 
 var sec = 0;
 var frame = 0;
@@ -176,7 +180,7 @@ function SceneUpdate(){
             
             if((sec -lastSpawned) == spawnInterval){
                 lastSpawned = sec;
-                spawnInterval = Math.floor(Math.random() * 3);
+                spawnInterval = Math.round(Math.random() * 2)+1;
 
                 console.log("spawn interval: " + spawnInterval);
 

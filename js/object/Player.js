@@ -1,12 +1,14 @@
 var playerMesh;
 var playerBody;
+// var ballMeshes;
+// var balls;
 
 function InitPlayer(){
     // Player Body
     playerShape = new CANNON.Sphere(radius);
     playerBody = new CANNON.Body({mass:mass,collisionFilterGroup:g[0],collisionFilterMask:g[1]});
     playerBody.addShape(playerShape);
-    playerBody.position.set(0,100,0);
+    playerBody.position.set(Math.random()*100-50,50,Math.random()*100-50);
     playerBody.linearDamping = 0.9;
     // Player Mesh
     var sphereGeometry = new THREE.SphereGeometry(radius);
