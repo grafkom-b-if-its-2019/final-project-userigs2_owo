@@ -1,10 +1,7 @@
 var playerBody, playerMesh;
 var mass = 5, radius = 1.3;
 var building;
-// var boundaryLoc = [   [-110, 100, 0, 10, 100, 100],
-//                       [110, 100, 0, 10, 100, 100],
-//                       [0, 100, 110, 100, 100, 10],
-//                       [0, 100, -110, 100, 100, 10]];
+var topCamera;
 
 var cityBlocks = [  [110, 100, 0, 10, 100, 100],  // I s e l
                     [-110, 100, 0, 10, 100, 100], // n i   l
@@ -71,21 +68,14 @@ function InitWorld(){
     groundBody.addShape(groundShape);
     groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1,0,0),-Math.PI/2);
     world.addBody(groundBody);
-
-    // var boundaries = [];
-    // for(var i=0; i<boundaryLoc.length; i++) {
-    //   var boundaryShape = new CANNON.Box(new CANNON.Vec3(boundaryLoc[3],boundaryLoc[4],boundaryLoc[5]));
-    //   var boundaryBody = new CANNON.Body({ mass: 0, collisionFilterGroup:g[1],collisionFilterMask:g[0]|g[2] });
-    //   boundaryBody.addShape(boundaryShape);
-    //   world.addBody(boundaryBody);
-    //   boundaryBody.position.set(boundaryLoc[0],boundaryLoc[1],boundaryLoc[2]);
-    //   boundaries.push(boundaryBody);
-    // }
 }
 
 function InitScene(){
     
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+    topCamera = new THREE.OrthographicCamera(-25, 25, 25, -25, 0.1, 1000);
+    topCamera.up.set(0,0,-1);
+
     scene = new THREE.Scene();
 
     ///////////////////////////////////////////////////////////////////////////////// Skybox /////////////////////////////////////////////////////////////////////////////////////////////
@@ -157,9 +147,8 @@ function InitScene(){
     planeMesh.receiveShadow = true;
     scene.add(planeMesh);
 
-    
-
-    // Building
+  
+    ///////////////////////////////////////////////////////////////////////////////// Building /////////////////////////////////////////////////////////////////////////////////////////////
     for(var i=0; i<cityBlocks.length; i++) {
         new CityBuilding(
             cityBlocks[i][0],
@@ -221,7 +210,13 @@ function SceneUpdate(){
     document.getElementById("time").innerHTML="Time : " + sec;
     
     controls.update( Date.now() - time );
-
+    topCamera.lookAt(new THREE.Vector3(playerMesh.position.x, 0, playerMesh.position.z));
+    topCamera.position.set(playerMesh.position.x, playerMesh.position.y+50, playerMesh.position.z)
+    topCamera.updateProjectionMatrix();
+    
+    renderer.setViewport(0, 0, window.innerWidth, window.innerHeight);
     renderer.render( scene, camera );
+    renderer.setViewport(0, 0, 200, 200);
+    renderer.render( scene, topCamera);
     time = Date.now();
 }

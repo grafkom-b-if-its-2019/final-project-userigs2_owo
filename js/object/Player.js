@@ -27,7 +27,7 @@ function PlayerShoot(){
     var ballGeometry = new THREE.SphereGeometry(ballShape.radius, 32, 32);
     var shootDirection = new THREE.Vector3();
     var shootVelo = 90;
-    var projector = new THREE.Projector();
+    // var projector = new THREE.Projector();
     function getShootDir(targetVec){
         var vector = targetVec;
         targetVec.set(0,0,1);

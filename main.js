@@ -2,7 +2,7 @@ var controls, time = Date.now();
 var balls = [], ballMeshes = [];
 var dt = 1/60;
 var stat, scene;
-var renderer;
+var renderer, topRenderer;
 var g=[];
 for(i=0,a=1;i<3;i++){
     g.push(a);
@@ -10,9 +10,10 @@ for(i=0,a=1;i<3;i++){
 }
 
 function Init(){
-    renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.WebGLRenderer({antialias: true});
     renderer.shadowMapEnabled = true;
     renderer.shadowMapType = THREE.PCFSoftShadowMap;
+    renderer.autoClear = false
 
     Start();
     InitWorld();
