@@ -1,18 +1,19 @@
 var playerBody, playerMesh;
 var mass = 5, radius = 1.3;
 var building;
-var cityBlocks = [  [-150, 30, 0, 30, 30, 150],     // Boundary West
-                    [150, 30, 0, 30, 30, 150],      // Boundary East
-                    [0, 30, 150, 150, 30, 30],      // Boundary South
-                    [0, 30, -150, 150, 30, 30],     // Boundary North
+var cityBlocks = [  [-100, 5, 0, 10, 5, 100],     // Boundary West
+                    [100, 5, 0, 10, 5, 100],      // Boundary East
+                    [0, 5, 100, 100, 5, 10],      // Boundary South
+                    [0, 5, -100, 100, 5, 10],     // Boundary North
                     [50, 10, -20, 50, 10, 5],
-                    [-90, 15, 0, 35, 10, 5],
-                    [100, 35, 0, 5, 5, 5],
-                    [85, 45, 0, 2, 2, 2],
-                    [85, 30, 0, 5, 5, 5],
+                    [-90, 10, 0, 35, 10, 5],  
+                    [85, 4, 0, 5, 4, 5],            // L
+                    [80, 3, 0, 5, 3, 5],            // A 
+                    [80, 2, 5, 5, 2, 5],            // D
+                    [80, 1, 10, 5, 1, 5],           // D  E   R
                     [-18, 10, 50, 15, 10, 50],
                     [30, 5, 20, 30, 5, 20],
-                    [90, 5, 20, 20, 45, 20],
+                    [0, 45, -48, 18, 45, 18],       // Skyscrapper
                     [-25, 5, -15, 20, 5, 10],
                     [-45, 10, -25, 5, 5, 50],
                     [-60, 20, -25, 5, 10, 15],
@@ -23,7 +24,7 @@ var sec = 0;
 var frame = 0;
 var spawnInterval = Math.floor(Math.random() * 3) + 1;
 var lastSpawned = 0;
-var rS = new rStats();
+// var rS = new rStats();
                     
 function InitWorld(){
     //Setup World
@@ -68,7 +69,7 @@ function InitScene(){
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
     scene = new THREE.Scene();
 
-    // Skybox
+    ///////////////////////////////////////////////////////////////////////////////// Skybox /////////////////////////////////////////////////////////////////////////////////////////////
     var sky = new THREE.BoxGeometry(1024, 1024, 1024, 1,1,1);
     var skyMaterials = [
         // back side
@@ -107,25 +108,24 @@ function InitScene(){
     var skyMesh = new THREE.Mesh(sky, skyMaterial);
     scene.add(skyMesh);
 
+    ///////////////////////////////////////////////////////////////////////////////// Light //////////////////////////////////////////////////////////////////////////////////////////////
+
     ambient = new THREE.AmbientLight( 0x111111);
     scene.add(ambient);
 
-    light = new THREE.SpotLight( 0xffffff );
-    light.position.set(100,150,0);
+    var light = new THREE.SpotLight( 0xffffff );
+    light.castShadow = true;
+    light.position.set(150,200,0);
     light.target.position.set(0,0,0);
-
-    if(true) {
-        light.castShadow = true;
-
-        light.shadowCameraNear = 20;
-        light.shadowCameraFar = 50;
-        light.shadowCameraFov = 40;
-    }
-    scene.add(light);
+    light.intensity = 2;
     
+    scene.add(light);
+    light.shadowMapWidth = 512;
+    light.shadowMapHeight = 512;  
 
-    // floor
-    var geoPlane = new THREE.PlaneGeometry( 300, 300, 1, 1);
+    ///////////////////////////////////////////////////////////////////////////////// Ground /////////////////////////////////////////////////////////////////////////////////////////////
+
+    var geoPlane = new THREE.PlaneGeometry( 200, 200, 1, 1);
     geoPlane.applyMatrix(new THREE.Matrix4().makeRotationX( -Math.PI / 2));
     var grassTexture = THREE.ImageUtils.loadTexture('./assets/textures/grass01.jpg');
 
@@ -133,7 +133,6 @@ function InitScene(){
     planeMaterial.map.wrapS = planeMaterial.map.wrapT = THREE.RepeatWrapping;
     planeMaterial.map.repeat.set(300,300);
     planeMesh = new THREE.Mesh(geoPlane, planeMaterial);
-    
 
     planeMesh.castShadow = true;
     planeMesh.receiveShadow = true;
@@ -160,7 +159,7 @@ function InitGameObject(){
     scene.add(controls.getObject());
 
     InitEnemy();
-    InitSpider();
+    // InitSpider();
 
 }
 
@@ -192,8 +191,12 @@ function SceneUpdate(){
     
     for(var i=0; i<enemyBodies.length; i++) {
         UpdateEnemy(i);
-   }
-   document.getElementById("score").innerHTML="Score :<br>" + score +"<br>Time :<br>"+ sec;
+    }
+    // console.log("spider: " + SpiderBody.position.x);
+    // for(var i=0; i<SpiderBodies.length; i++) {
+    //     UpdateSpider(i);
+    // }
+    document.getElementById("score").innerHTML="Score :<br>" + score +"<br>Time :<br>"+ sec;
     
     controls.update( Date.now() - time );
 

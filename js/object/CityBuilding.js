@@ -18,7 +18,6 @@ var CityBuilding = function(posX,posY,posZ, x, y, z, i){
         texture = THREE.ImageUtils.loadTexture('./assets/textures/wall/wall01.JPG',);
     }
     var boxMaterial = new THREE.MeshPhongMaterial({
-         
         map: texture });
     boxMaterial.map.wrapS = boxMaterial.map.wrapT = THREE.RepeatWrapping;
     boxMaterial.map.repeat.set(x,y);
