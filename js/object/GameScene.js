@@ -24,7 +24,7 @@ var sec = 0;
 var frame = 0;
 var spawnInterval = Math.floor(Math.random() * 3) + 1;
 var lastSpawned = 0;
-var rS = new rStats();
+// var rS = new rStats();
                     
 function InitWorld(){
     //Setup World
@@ -196,7 +196,6 @@ function SceneUpdate(){
     // for(var i=0; i<SpiderBodies.length; i++) {
     //     UpdateSpider(i);
     // }
-    }
     document.getElementById("score").innerHTML="Score :<br>" + score +"<br>Time :<br>"+ sec;
     
     controls.update( Date.now() - time );
