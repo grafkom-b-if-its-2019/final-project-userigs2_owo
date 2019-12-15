@@ -126,7 +126,7 @@ function InitScene(){
     light.castShadow = true;
     light.position.set(90,200,0);
     light.target.position.set(0,0,0);
-    light.intensity = 2;
+    light.intensity = 1;
     
     scene.add(light);
     light.shadowMapWidth = 512;

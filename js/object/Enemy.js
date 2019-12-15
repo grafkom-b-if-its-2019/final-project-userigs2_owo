@@ -2,6 +2,7 @@ var Enemies = []
 var posa=0,posb=0;
 var enemyBodies = []
 var enemyMeshes = []
+var enemyt = []
 
 function InitEnemy() {
     // placeholder
@@ -76,12 +77,21 @@ var enemy = function(x,y,z) {
     
     scene.add(EnemyMesh);
     world.addBody(EnemyBody);
-
+    
+    enemyt.push(0);
     enemyBodies.push(EnemyBody);
     enemyMeshes.push(EnemyMesh);
 }
 
 function UpdateEnemy(i){
+    if(enemyt[i]>1200) {
+        scene.remove(enemyMeshes[i]);
+        world.removeBody(enemyBodies[i]);
+        enemyMeshes.splice(i,1);
+        enemyBodies.splice(i,1);
+        enemyt.splice(i,1);
+    }
+    enemyt[i]++;
     enemyMeshes[i].position.copy(enemyBodies[i].position);
     enemyMeshes[i].quaternion.copy(enemyBodies[i].quaternion);
     if(enemyMeshes[i].position.x + 1.4 >= playerMesh.position.x && 
