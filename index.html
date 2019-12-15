@@ -75,27 +75,28 @@
                 z-index: 1;
             }
             #score{
-                margin-left: 95%;
-                margin-top: 45%;
+                margin-left: 0;
                 border: 2px solid white;
-                border-radius: 5px;
-                text-align: right;
-                position: absolute;
+                margin-top: 0;
+                text-align: left;
+                position: relative;
                 z-index: 2;
                 color: white;
+                font-size: x-large;
+                padding-left: 3px;
             }
-            /* #time{
-                margin-left: 94%;
-                margin-top: 49%;
+            #time{
+                margin-left: 0;
                 border: 2px solid white;
-                border-radius: 5px;
-                text-align: right;
-                position: absolute;
+                text-align: left;
+                position: relative;
                 z-index: 2;
                 color: white;
-            } */
+                font-size: x-large;
+                padding-left: 3px;
+            }
 
-            #crosshare{
+            #crosshair{
                 position: absolute;
                 width: 100%;
                 text-align: center;
@@ -103,17 +104,26 @@
                 margin-top: 25%;
                 color:white;
                 font-weight: bold;
-                font-size: larger;
+                font-size: x-large;
             }
-            /* #border{
-                border:2px solid white;
+
+            /* #Stats-output{
+                position: fixed;
+                bottom: 0;
+                right: 0;
+                overflow: hidden; 
+                position: absolute; 
+                left: 46%;
+            } */
+
+            #border{
+                margin-top: 1%;
                 border-radius: 5px;
-                margin-top: 700px;
+                width: 8%;
+                height: 10%;
                 position: absolute;
-                width: 100%;
                 text-align:right;
-                z-index: 2;
-            }   */
+            }  
 
         </style>
     </head>
@@ -121,10 +131,14 @@
     <body>
         
         <div id="Stats-output"></div>
-        <div id="score">
-            
+
+        <div id="border">
+            <div id="score">Score : 0</div>
+            <div id="time">Time :  0</div>    
         </div>
-        <div id="crosshare">.</div>
+
+        <div id="crosshair">+</div>
+
         <div id="blocker">
             <div id="instructions">
                 <span style="font-size:40px">Click to play</span>
