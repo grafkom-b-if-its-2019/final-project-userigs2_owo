@@ -62,7 +62,7 @@ function Click(e){
             starPosition: [],
             randomness: []
         };
-        var totalParticles = 200;
+        var totalParticles = 50;
         var radiusRange = 1;
         for(var i=0; i < totalParticles; i++) {
             var spriteMaterial = new THREE.SpriteMaterial( {
@@ -150,19 +150,19 @@ function BulletMovement(){
             }
             particles[i].rotation.y = time * 0.75;
     
-            if(ballMeshes[i].position.x>=-300 && ballMeshes[i].position.x<=300){
-                if(ballMeshes[i].position.z>=-300 && ballMeshes[i].position.z<=300){
-                    if(ballMeshes[i].position.y>=-1 && ballMeshes[i].position.y<=1){
-                        scene.remove(ballMeshes[i]);
-                        scene.remove(particles[i]);
-                        world.removeBody(balls[i]);
-                        ballMeshes.splice(i,1);
-                        particles.splice(i,1);
-                        balls.splice(i,1);
-                        i--;
-                    }
-                }
-            }
+            // if(ballMeshes[i].position.x>=-300 && ballMeshes[i].position.x<=300){
+            //     if(ballMeshes[i].position.z>=-300 && ballMeshes[i].position.z<=300){
+            //         if(ballMeshes[i].position.y>=-1 && ballMeshes[i].position.y<=1){
+            //             scene.remove(ballMeshes[i]);
+            //             scene.remove(particles[i]);
+            //             world.removeBody(balls[i]);
+            //             ballMeshes.splice(i,1);
+            //             particles.splice(i,1);
+            //             balls.splice(i,1);
+            //             i--;
+            //         }
+            //     }
+            // }
             for(j=0;j<enemyMeshes.length;j++){
                 if(ballMeshes[i].position.x + 1.4 >= enemyMeshes[j].position.x && 
                     ballMeshes[i].position.x - 1.4 <= enemyMeshes[j].position.x){
